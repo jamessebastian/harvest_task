@@ -1,0 +1,128 @@
+.red {
+    color: red;
+}
+
+
+.navbar {
+	background-color: #f36c00;
+	padding: 0px;
+}
+
+#navbarNav{
+    margin:0 43px;
+}
+.d{border: 1px solid blue;}
+/*for main navbar----------------------------------------------------------*/
+.nav-linkQ {
+    color: white;
+}
+
+.nav-linkQ:hover {
+    color: white;
+}
+
+.nav-itemQ {
+    padding: 4px;
+}
+
+.nav-itemQ:hover{
+    background-color: #F29A58;
+}
+/*-------------------------------------------------------------------------*/
+
+.specialHr {
+    border-top-width: 2px;
+}
+
+/*for sub-navbar----------------------------------------------------*/
+.subNavActive {
+    border-bottom: 2px solid #f36c00 ;
+    color:black;
+}
+
+.sub-nav-link {
+    font-weight: bold;
+    font-size: 13px;
+    color: gray;
+}
+
+.sub-nav-link:hover {
+    color: black;
+}
+
+.sub-nav-item {
+
+}
+
+.sub-nav-item:hover {
+    border-bottom: 2px solid #f36c00 ;
+}
+
+#subNavbar {
+    background-color: #EEEEEE;
+    padding: 0px;
+}
+/*--------------------------------------------------------------------*/
+
+//div {border:1px solid red }
+
+
+
+#dropdownMenuButton {
+	color:white;
+}
+
+.fa-xing-square {
+	color: black;
+	font-size: x-large;
+}
+
+.active {
+	background-color: #F29A58;
+}
+
+#contentSection {
+    margin-top: 50px;
+	min-height: 410px;
+}
+
+#footerWrapper {
+	color:gray;
+}
+
+#footer {
+	height: 100px;
+}
+
+.f-link:hover {
+	text-decoration: none;
+	color: black;
+}
+
+.f-link {
+	font-size: small;
+	padding: 18px;
+	margin:auto 0px;
+	color:gray;
+}
+
+.noMarginHr {
+	margin: 0px;
+}
+
+.gray {
+    background-color:gray;
+}
+
+.grayFont {
+    color: gray;
+}
+
+#footBrand {
+	font-size: x-large;
+    font-weight: bold;
+}
+
+.select2-selection--multiple {
+    width:405px;
+}

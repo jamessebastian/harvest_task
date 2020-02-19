@@ -1,0 +1,27 @@
+.day {
+
+    display: table;
+    height: 50px;
+    text-align: center;
+
+}
+
+.qwe {
+    display: table-cell;
+    vertical-align: middle;
+}
+#activeWeek {
+    background-color: gray;
+}
+
+.lightGray {
+    background-color: #E9ECEF;
+}
+
+#days>div:hover {
+    background-color: gray;
+}
+
+#days {
+    height: 50px;
+}
