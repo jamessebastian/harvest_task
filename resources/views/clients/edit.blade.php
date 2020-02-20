@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('title')
+<title>Manage</title>
+@endsection
+
 @section('sub-navbar')
     <nav id="subNavbar" class="navbar navbar-expand-lg">
         <div class="container">

@@ -62,6 +62,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the time sheet for the user.
+     */
+    public function timesheets()
+    {
+        return $this->hasMany(TimeSheet::class);
+    }
+
+    /**
      * To check whether user has any roles in the given array
      *
      * @param  Array  $roles

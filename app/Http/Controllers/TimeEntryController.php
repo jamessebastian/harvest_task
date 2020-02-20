@@ -116,13 +116,13 @@ class TimeEntryController extends Controller
             $timeSheet = new TimeSheet;
             $timeSheet->start_date = $startOfWeek;
             $timeSheet->end_date = $endOfWeek;
-            $timeSheet->users_id = \Auth::user()->id;
+            $timeSheet->user_id = \Auth::user()->id;
             $timeSheet->save();
         }
 
         $time_entry = new Time_entry;
         $time_entry->time_sheets_id = $timeSheet->id;
-
+//        $timeSheet->total_hours+=request('timeInHours');
         $time_entry->time = request('timeInHours');
         $time_entry->notes = request('notes');
         $time_entry->date = request('date');

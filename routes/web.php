@@ -65,6 +65,10 @@ Route::post('/time', 'TimeEntryController@store');
 Route::delete('/timeEntry/{Time_entry_id}', 'TimeEntryController@delete');
 
 
-Route::get('ajax',function() {
-    return view('message');
-});
+Route::get('/approve', 'TimeSheetController@index');
+
+
+
+//Route::get('ajax',function() {
+//    return view('message');
+//});

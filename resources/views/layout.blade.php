@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>welcome</title>
+    @yield('title')
+    <title>Harvest</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="stylesheet" type="text/css" href="/fontawesome-free-5.9.0-web/css/all.css">
@@ -21,7 +22,7 @@
     <div class="container">
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item nav-itemQ {{Request::path() === 'time' ? 'active':''}}">
+                <li class="nav-item nav-itemQ {{(Request::path() === 'time' or Request::path() === 'approve') ? 'active':''}}">
                     <a class="nav-link nav-linkQ" href="/time">Time</a>
                 </li>
                 <li class="nav-item nav-itemQ {{Request::path() === 'expenses' ? 'active':''}}">

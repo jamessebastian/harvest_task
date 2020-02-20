@@ -1,5 +1,9 @@
 @extends('layout')
 
+@section('title')
+<title>TimesSheet</title>
+@endsection
+
 @section('head')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
@@ -17,10 +21,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item sub-nav-item subNavActive">
-                        <a class="nav-link sub-nav-link" href="#">Timesheet</a>
+                        <a class="nav-link sub-nav-link" href="\time">Timesheet</a>
                     </li>
                     <li class="nav-item sub-nav-item">
-                        <a class="nav-link sub-nav-link" href="#">Pending Approval</a>
+                        <a class="nav-link sub-nav-link" href="\approve">Pending Approval</a>
                     </li>
                     <li class="nav-item sub-nav-item">
                         <a class="nav-link sub-nav-link" href="#">Unsubmitted</a>
@@ -124,7 +128,7 @@
                 <form action="">
                     @csrf
                     <button type="submit" class="btn mb-3 btn-success">
-                        Submit for Approval
+                        Submit Week for Approval
                     </button>
                 </form>
 

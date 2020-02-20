@@ -1,5 +1,9 @@
 @extends('layout')
 
+@section('title')
+<title>Manage</title>
+@endsection
+
 @section('head')
     <link rel="stylesheet" type="text/css" href="/tasks.css">
 

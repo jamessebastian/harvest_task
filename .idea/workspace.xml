@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="acaccd44-30d9-455d-9539-4b8ae7cde811" name="Default Changelist" comment="" />
+    <list default="true" id="acaccd44-30d9-455d-9539-4b8ae7cde811" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/timesheet/submitted.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ClientsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ClientsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ExpensesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ExpensesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TimeEntryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TimeEntryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TimeSheetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TimeSheetController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/TimeSheet.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/TimeSheet.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_01_26_164131_create_time_sheets_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_01_26_164131_create_time_sheets_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/clients/clients.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/clients.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/clients/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/clients/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layout.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/tasks.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tasks.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/tasks_edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tasks_edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/time.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/time.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,6 +48,9 @@
   </component>
   <component name="FavoritesManager">
     <favorites_list name="task" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpWorkspaceProjectConfiguration">
@@ -126,6 +148,7 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1Wemgt4w5fNFeamG4jplItph8vV" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -133,6 +156,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/database/migrations" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
@@ -198,7 +222,7 @@
       <workItem from="1581399813589" duration="13085000" />
       <workItem from="1581417307954" duration="21156000" />
       <workItem from="1581583780558" duration="1810000" />
-      <workItem from="1581589377837" duration="50986000" />
+      <workItem from="1581589377837" duration="69079000" />
     </task>
     <servers />
   </component>
@@ -226,10 +250,10 @@
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state x="399" y="124" width="624" height="544" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/67.27.1299.741@67.27.1299.741" timestamp="1581417297711" />
-    <state x="449" y="154" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1581939195628">
+    <state x="449" y="154" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1582097756790">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="449" y="154" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1299.741@67.27.1299.741" timestamp="1581939195628" />
+    <state x="449" y="154" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1299.741@67.27.1299.741" timestamp="1582097756790" />
     <state x="499" y="154" width="424" height="484" key="FileChooserDialogImpl" timestamp="1579687735328">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
@@ -294,10 +318,10 @@
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state x="372" y="224" key="com.intellij.ide.util.TipDialog/67.27.1299.741@67.27.1299.741" timestamp="1581589378269" />
-    <state x="367" y="122" width="709" height="576" key="find.popup" timestamp="1581923155409">
+    <state x="367" y="122" width="709" height="576" key="find.popup" timestamp="1582108243126">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="367" y="122" width="709" height="576" key="find.popup/67.27.1299.741@67.27.1299.741" timestamp="1581923155409" />
+    <state x="367" y="122" width="709" height="576" key="find.popup/67.27.1299.741@67.27.1299.741" timestamp="1582108243126" />
     <state x="379" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1581585569868">
       <screen x="67" y="27" width="1299" height="741" />
     </state>

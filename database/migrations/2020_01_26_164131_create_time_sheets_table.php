@@ -23,9 +23,9 @@ class CreateTimeSheetsTable extends Migration
 
             $table->unique(['start_date','end_date']);
 
-            $table->unsignedBigInteger('users_id');
+            $table->unsignedBigInteger('user_id');
 
-            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

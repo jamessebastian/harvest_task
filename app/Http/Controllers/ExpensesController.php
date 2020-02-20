@@ -64,7 +64,7 @@ class ExpensesController extends Controller
             $timeSheet = new TimeSheet;
             $timeSheet->start_date = $startOfWeek;
             $timeSheet->end_date = $endOfWeek;
-            $timeSheet->users_id = \Auth::user()->id;
+            $timeSheet->user_id = \Auth::user()->id;
             $timeSheet->save();
         }
 
@@ -121,7 +121,7 @@ class ExpensesController extends Controller
             $timeSheet = new TimeSheet;
             $timeSheet->start_date = $startOfWeek;
             $timeSheet->end_date = $endOfWeek;
-            $timeSheet->users_id = \Auth::user()->id;
+            $timeSheet->user_id = \Auth::user()->id;
             $timeSheet->save();
         }
 

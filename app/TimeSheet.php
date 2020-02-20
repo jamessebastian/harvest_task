@@ -23,4 +23,14 @@ class TimeSheet extends Model
     {
         return $this->hasMany(Time_entry::class);
     }
+
+    /**
+     * Get the user that owns the timesheet.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
 }

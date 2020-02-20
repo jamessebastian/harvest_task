@@ -94,7 +94,8 @@ class ClientsController extends Controller
      * @return json
      */
     public function ajaxDelete(Clients $client)
-    {
+    {print_r($client);
+    die();
         $clientName= $client->name;
         $client->delete();
         return response()->json(array('msg'=> $clientName." has been deleted."), 200);
@@ -107,6 +108,7 @@ class ClientsController extends Controller
      */
     protected function validateClient()
     {
+
         return request()->validate([
             'name'=>['required','min:2','max:255'],
             'address'=>'required',
