@@ -49,12 +49,13 @@
                 <li class="nav-item nav-itemQ">
                     <a class="nav-link nav-linkQ" href="#">Help</a>
                 </li>
+                @auth
                 <li class="nav-item nav-itemQ">
                     <a class="nav-link nav-linkQ" href="#">Settings</a>
                 </li>
                 <div class="dropdown mr-2">
                     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fab fa-xing-square"></i>
-                        {{Auth::user()->name}}
+                    {{Auth::user()->name}}
 {{--                        @if (Auth::user()){{Auth::user()->name}}@else sunny @endif--}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -78,6 +79,7 @@
                         @csrf
                         </form>
                     </div>
+                    @endauth
                 </div>
             </ul>
         </div>
