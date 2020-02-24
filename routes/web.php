@@ -17,8 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/clients', 'CustomAuth.LoginController@index');
-Route::get('/clients', 'CustomAuth.RegisterController@');
+Route::get('/clogin', 'CustomAuth.LoginController@showLoginForm');
+Route::get('/clogin', 'CustomAuth.LoginController@showLoginForm');
+
+
+
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
