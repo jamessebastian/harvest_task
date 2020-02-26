@@ -12,14 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('customAuth.login');
 });
 
 Auth::routes();
 
-Route::get('/clogin', 'CustomAuth.LoginController@showLoginForm');
-Route::get('/clogin', 'CustomAuth.LoginController@showLoginForm');
 
+Route::get('/cregister', 'CustomAuth\RegisterController@showRegistrationForm');
+Route::post('/cregister', 'CustomAuth\RegisterController@register');
+
+Route::get('/clogin', 'CustomAuth\LoginController@showLoginForm');
+Route::post('/clogin', 'CustomAuth\LoginController@authenticate');
 
 
 
