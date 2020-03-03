@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Tasks;
 use Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class TasksController extends Controller
 {
@@ -39,7 +40,12 @@ class TasksController extends Controller
      */
     public function store()
     {
-        Tasks::create( $this->validateTask()+['organisation_id'=>Auth::user()->organisation->id]);
+        $validatedValues = request()->validate([
+            'name'=>['required','min:2','max:255',Rule::unique('tasks')->where(function ($query) {
+                return $query->where('organisation_id', Auth::user()->organisation->id);})],
+            'hourly_rate'=>['required','numeric']]);
+
+        Tasks::create( $validatedValues+['organisation_id'=>Auth::user()->organisation->id]);
         return redirect('/tasks');
 
     }
@@ -66,7 +72,12 @@ class TasksController extends Controller
      */
     public function update(Tasks $task)
     {
-        $task->update( $this->validateTask());
+        $validatedValues = request()->validate([
+            'name'=>['required','min:2','max:255',Rule::unique('tasks')->ignore($task->id)->where(function ($query) {
+                return $query->where('organisation_id', Auth::user()->organisation->id);})],
+            'hourly_rate'=>['required','numeric']]);
+
+        $task->update($validatedValues);
         return redirect('/tasks');
     }
 
@@ -90,16 +101,5 @@ class TasksController extends Controller
         return response()->json(array('msg'=> $taskName." has been deleted."), 200);
     }
 
-    /**
-     * Validates task details.
-     *
-     * @return Array
-     */
-    protected function validateTask()
-    {
-        return request()->validate([
-            'name'=>['required','min:2','max:255'],
-            'hourly_rate'=>['required','numeric']]);
-    }
 
 }
