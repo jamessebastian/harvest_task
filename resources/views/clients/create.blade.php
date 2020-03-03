@@ -48,7 +48,7 @@
                     <div class="form-group row">
                         <label for="name" class="col-sm-2 col-form-label form-control-sm">Client Name</label>
                         <div class="col-sm-10">
-                            <input type="text" name="name" class="form-control" id="clientName" value="{{old('clientName')}}">
+                            <input type="text" name="name" class="form-control" id="clientName" value="{{old('name')}}">
                             @if($errors->has('name'))
                             <small class="red">{{$errors->first('name')}}</small>
                             @endif

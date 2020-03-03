@@ -45,10 +45,15 @@
                                     @foreach($roles as $role)
                                         <div class="form-check">
                                             <input type="checkbox" value="{{$role->id}}" name="roles[]">
-                                            <label>{{$role->name}}<?php var_dump(old('roles[]'));?></label>
+                                            <label>{{$role->name}}</label>
 
                                         </div>
                                     @endforeach
+                                    @error('roles')
+                                        <span class="invalid-feedback" style="display:block" role="alert">
+                                          <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
 
                                 </div>
                             </div>

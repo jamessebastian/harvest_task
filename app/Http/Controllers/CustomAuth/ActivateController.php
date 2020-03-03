@@ -45,7 +45,6 @@ class ActivateController extends Controller
     public function activate(Request $request)
     {
 
-
         $user = User::where([['token','=',$request->token]])->get()->first();
 
         if(empty($user)){
@@ -55,6 +54,7 @@ class ActivateController extends Controller
         $request->validate([ 'password' => ['required', 'string', 'min:8', 'confirmed'] ]);
 
         $user->password = Hash::make($request->password);
+        $user->token = null;
         $user->save();
 
         Auth::guard()->login($user);

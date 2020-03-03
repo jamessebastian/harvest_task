@@ -54,9 +54,9 @@ class UsersController extends Controller
     public function store(Request $request)
     {
 
-        request()->validate([
-            'name'=>['required','min:2','max:255'],
-            'email'=>['required','email','unique:users']
+        $request->validate(['name'=>'required|string|min:2',
+            'email'=>'string|email|unique:users',
+            'roles'=>'required',
         ]);
 
         $token = md5(uniqid(rand(), true));
@@ -106,6 +106,13 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        //Validation
+        $request->validate(['name'=>'required|string|min:2',
+                            'email'=>'string|email|unique:users,email,'.$user->id.'',
+                            'roles'=>'required',
+                            ]);
+
+
         $user->roles()->sync($request->roles);
         $user->name=$request->name;
         $user->email = $request->email;

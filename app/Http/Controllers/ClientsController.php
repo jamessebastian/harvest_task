@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Clients;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class ClientsController extends Controller
 {
@@ -62,7 +63,13 @@ class ClientsController extends Controller
      */
     public function store()
     {
-        Clients::create($this->validateClient()+['organisation_id'=>Auth::user()->organisation->id]);
+        $validatedValues = request()->validate([
+            'name'=>['required','min:2','max:255',Rule::unique('clients')->where(function ($query) {
+                return $query->where('organisation_id', Auth::user()->organisation->id);})],
+            'address'=>'required',
+            'currency'=>'required']);
+
+        Clients::create($validatedValues+['organisation_id'=>Auth::user()->organisation->id]);
         return redirect('/clients');
     }
 
@@ -75,24 +82,16 @@ class ClientsController extends Controller
      */
     public function update(Clients $client)
     {
-        $client->update($this->validateClient());
+        $validatedValues = request()->validate([
+            'name'=>['required','min:2','max:255',Rule::unique('clients')->ignore($client->id)->where(function ($query) {
+                return $query->where('organisation_id', Auth::user()->organisation->id);})],
+            'address'=>'required',
+            'currency'=>'required']);
+
+        $client->update($validatedValues);
         return redirect('/clients');
     }
 
-
-    /**
-     * Validates client details.
-     *
-     * @return Array
-     */
-    protected function validateClient()
-    {
-
-        return request()->validate([
-            'name'=>['required','min:2','max:255'],
-            'address'=>'required',
-            'currency'=>'required']);
-    }
 
 //    public function delete($id)
 //    {

@@ -25,7 +25,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <label for="name" class="col-md-2 col-form-label text-md-right">Name</label>
 
@@ -50,6 +49,11 @@
 
                                     </div>
                                 @endforeach
+                                @error('roles')
+                                    <span class="invalid-feedback" style="display:block" role="alert">
+                                        <strong>{{ $errors->first('roles') }}</strong>
+                                    </span>
+                                @enderror
 
                             </div>
                         </div>
