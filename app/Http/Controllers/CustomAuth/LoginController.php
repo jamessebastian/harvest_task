@@ -72,4 +72,22 @@ class LoginController extends Controller
     }
 
 
+    /**
+     * Activate invited user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function activate(Request $request)
+    {
+
+
+        ddd($request);
+        //login a user into the application
+        $this->guard()->login($user);
+
+        return redirect('/time');
+    }
+
+
 }

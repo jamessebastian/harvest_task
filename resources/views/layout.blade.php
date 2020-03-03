@@ -19,7 +19,9 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg">
+
     <div class="container">
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item nav-itemQ {{(Request::path() === 'time' or Request::path() === 'approve') ? 'active':''}}">
@@ -28,44 +30,46 @@
                 <li class="nav-item nav-itemQ {{Request::path() === 'expenses' ? 'active':''}}">
                     <a class="nav-link nav-linkQ" href="/expenses">Expenses</a>
                 </li>
+                @can('is_admin')
                 <li class="nav-item nav-itemQ {{Request::path() === 'projects' ? 'active':''}}">
                     <a class="nav-link nav-linkQ" href="/projects">Project</a>
                 </li>
                 <li class="nav-item nav-itemQ {{Request::path() === 'team' ? 'active':''}}">
                     <a class="nav-link nav-linkQ" href="/team">Team</a>
                 </li>
-                <li class="nav-item nav-itemQ">
-                    <a class="nav-link nav-linkQ" href="#">Reports</a>
-                </li>
-                <li class="nav-item nav-itemQ">
-                    <a class="nav-link nav-linkQ" href="#">Invoices</a>
-                </li>
+{{--                <li class="nav-item nav-itemQ">--}}
+{{--                    <a class="nav-link nav-linkQ" href="#">Reports</a>--}}
+{{--                </li>--}}
+{{--                <li class="nav-item nav-itemQ">--}}
+{{--                    <a class="nav-link nav-linkQ" href="#">Invoices</a>--}}
+{{--                </li>--}}
                 <li class="nav-item nav-itemQ {{(Request::path() === 'clients' or Request::path() === 'tasks') ? 'active':''}}">
                     <a class="nav-link nav-linkQ" href="/clients">Manage</a>
                 </li>
+                @endcan
             </ul>
 
             <ul class=" navbar-nav ml-auto">
-                <li class="nav-item nav-itemQ">
-                    <a class="nav-link nav-linkQ" href="#">Help</a>
-                </li>
+{{--                <li class="nav-item nav-itemQ">--}}
+{{--                    <a class="nav-link nav-linkQ" href="#">Help</a>--}}
+{{--                </li>--}}
                 @auth
-                <li class="nav-item nav-itemQ">
-                    <a class="nav-link nav-linkQ" href="#">Settings</a>
-                </li>
+{{--                <li class="nav-item nav-itemQ">--}}
+{{--                    <a class="nav-link nav-linkQ" href="#">Settings</a>--}}
+{{--                </li>--}}
                 <div class="dropdown mr-2">
                     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fab fa-xing-square"></i>
                     {{Auth::user()->name}}
 {{--                        @if (Auth::user()){{Auth::user()->name}}@else sunny @endif--}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="userEdit.php"><strong>{{Auth::user()->name}}</strong></a>
+                        <a class="dropdown-item" href="userEdit.php"><strong>{{Auth::user()->organisation->name}}</strong></a>
                         <hr>
                         <a class="dropdown-item" href="userEdit.php">My Profile</a>
-                        <a class="dropdown-item" href="changePassword.php">My Time Report</a>
-                        <a class="dropdown-item" href="changePassword.php">Notifications</a>
-                        <hr>
-                        <a class="dropdown-item" href="userEdit.php">Apps & Integrations</a>
+{{--                        <a class="dropdown-item" href="changePassword.php">My Time Report</a>--}}
+{{--                        <a class="dropdown-item" href="changePassword.php">Notifications</a>--}}
+{{--                        <hr>--}}
+{{--                        <a class="dropdown-item" href="userEdit.php">Apps & Integrations</a>--}}
                         @can('manage-users')
                         <a class="dropdown-item"  href="{{ route('admin.users.index') }}">User Managent</a>
                         @endcan

@@ -21,14 +21,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#"><h2><STRONG>HARVEST</STRONG></h2></a>
 
-    <ul class="navbar-nav ml-auto">
-        <li class="nav-item ">
-            <a class="nav-link" href="/clogin">Login</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="/cregister">Register</a>
-        </li>
-    </ul>
 
 </nav>
 
@@ -36,28 +28,14 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-5">
-            <form class="card p-3 mb-3" method="POST" action="/cregister">
+            <form class="card p-3 mb-3" method="POST" action="/invitation">
                 @csrf
-                <h3>REGISTER</h3>
+                <input type="text" name="token" hidden value="{{ $token??'' }}">
+
+                <h3>UPDATE PASSWORD</h3>
+                <p >{{ $user_email }}</p>
                 <br>
-                <div class="form-group">
-                    <input type="text" value="{{ old('name') }}" name="name" class="form-control" placeholder="Name">
-                    @error('name')
-                    <small class="text-muted">{{$message}}</small>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <input type="email" value="{{ old('email') }}" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
-                    @error('email')
-                    <small class="text-muted">{{$message}}</small>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <input type="text" value="{{ old('organisation') }}" name="organisation" class="form-control" placeholder="Organisation">
-                    @error('organisation')
-                    <small class="text-muted">{{$message}}</small>
-                    @enderror
-                </div>
+
                 <div class="form-group">
                     <input type="password" value="{{ old('password') }}" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                     @error('password')
@@ -67,7 +45,7 @@
                 <div class="form-group">
                     <input type="password" value="{{ old('password_confirmation') }}" name="password_confirmation" class="form-control" placeholder="Confirm Password">
                 </div>
-                <button type="submit" class="mb-3 mt-5 btn btn-primary">Register</button>
+                <button type="submit" class="mb-3 mt-5 btn btn-primary">Update Password and Login</button>
             </form>
         </div>
     </div>

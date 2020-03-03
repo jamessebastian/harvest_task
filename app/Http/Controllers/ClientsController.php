@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Clients;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClientsController extends Controller
 {
@@ -27,7 +28,7 @@ class ClientsController extends Controller
         // return view('articles.index', ['articles' => $articles] );
         //$clients = Clients::all();
 
-        $clients = Clients::latest()->get();
+        $clients = Auth::user()->organisation->clients;
         return view('clients.clients',['clients'=>$clients] );
     }
 
@@ -61,8 +62,7 @@ class ClientsController extends Controller
      */
     public function store()
     {
-        //dump(request()->all());
-        Clients::create($this->validateClient());
+        Clients::create($this->validateClient()+['organisation_id'=>Auth::user()->organisation->id]);
         return redirect('/clients');
     }
 
@@ -79,27 +79,6 @@ class ClientsController extends Controller
         return redirect('/clients');
     }
 
-//    public function delete($id)
-//    {
-//        Clients::findOrFail($id)->delete();
-//        return redirect('/clients');
-//
-//    }
-
-    /**
-     * To delete clients using Ajax requests.
-     *
-     * @param  App\Clients  $client
-     *
-     * @return json
-     */
-    public function ajaxDelete(Clients $client)
-    {print_r($client);
-    die();
-        $clientName= $client->name;
-        $client->delete();
-        return response()->json(array('msg'=> $clientName." has been deleted."), 200);
-    }
 
     /**
      * Validates client details.
@@ -113,5 +92,26 @@ class ClientsController extends Controller
             'name'=>['required','min:2','max:255'],
             'address'=>'required',
             'currency'=>'required']);
+    }
+
+//    public function delete($id)
+//    {
+//        Clients::findOrFail($id)->delete();
+//        return redirect('/clients');
+//
+
+//    }
+    /**
+     * To delete clients using Ajax requests.
+     *
+     * @param  App\Clients  $client
+     *
+     * @return json
+     */
+    public function ajaxDelete(Clients $client)
+    {
+        $clientName= $client->name;
+        $client->delete();
+        return response()->json(array('msg'=> $clientName." has been deleted."), 200);
     }
 }

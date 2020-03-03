@@ -5,6 +5,7 @@ namespace App\Http\Controllers\CustomAuth;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Role;
+use App\Organisation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -32,6 +33,8 @@ class RegisterController extends Controller
         return view('customAuth.register');
     }
 
+
+
     /**
      * Handle a registration request for the application.
      *
@@ -42,8 +45,21 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
 
-//        event(new Registered($user = $this->create($request->all())));
-        $user = $this->create($request->all());
+        $org = new Organisation;
+        $org->name = $request->organisation;
+        $org->save();
+
+        //event(new Registered($user = $this->create($request->all())));
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'organisation_id' => $org->id,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $role = Role::select('id')->where('name','admin')->first();
+        $user->roles()->attach($role->id);
 
 
         //login a user into the application
@@ -52,17 +68,6 @@ class RegisterController extends Controller
         return redirect('/clients');
     }
 
-
-
-    /**
-     * Get the guard to be used during registration.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
-    protected function guard()
-    {
-        return Auth::guard();
-    }
 
 
     /**
@@ -77,29 +82,19 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'organisation' => ['required', 'string', 'max:255', 'unique:organisations,name'],
         ]);
 
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * Get the guard to be used during registration.
      *
-     * @param  array  $data
-     * @return \App\User
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
-    protected function create(array $data)
+    protected function guard()
     {
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-
-        $role = Role::select('id')->where('name','user')->first();
-        $user->roles()->attach($role->id);
-
-        return $user;
-
+        return Auth::guard();
     }
 
 }

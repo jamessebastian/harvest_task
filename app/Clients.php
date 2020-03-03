@@ -33,6 +33,17 @@ class Clients extends Model
         return 'uuid';
     }
 
+
+
+    /**
+     * Get the organisation that owns the user.
+     */
+    public function organisation()
+    {
+        return $this->belongsTo(Organisation::class);
+    }
+
+
     /**
      * Get the projects for the client.
      */
@@ -40,5 +51,6 @@ class Clients extends Model
     {
         return $this->hasMany(Projects::class);
     }
+
 
 }

@@ -44,6 +44,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+
+
+    /**
+     * Get the organisation that owns the user.
+     */
+    public function organisation()
+    {
+        return $this->belongsTo(Organisation::class);
+    }
+
+
+
+
+
     /**
      * The roles that belong to the user.
      */
@@ -52,6 +67,13 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    /**
+     * Get the clients for the user.
+     */
+    public function clients()
+    {
+        return $this->hasMany(Clients::class);
+    }
 
     /**
      * Get the expenses for the project.
@@ -100,4 +122,34 @@ class User extends Authenticatable
         }
         return false;
     }
+
+//    public function hasAccess(array $permissions)
+//    {
+//        foreach ($permissions as $permission) {
+//            if($this->)
+//        }
+//
+//    }
+//
+//
+//
+//    public function hasPermission(string $permission)
+//    {
+//        $this->per
+//
+//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

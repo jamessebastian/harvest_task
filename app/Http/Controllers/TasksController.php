@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tasks;
 use Gate;
+use Illuminate\Support\Facades\Auth;
 
 class TasksController extends Controller
 {
@@ -25,9 +26,9 @@ class TasksController extends Controller
      */
     public function index()
     {
-        Gate::authorize('task.viewAny');
-
-        return view('tasks', ['tasks' => Tasks::latest()->get()]);
+//        Gate::authorize('task.viewAny');
+        $tasks = Auth::user()->organisation->tasks;
+        return view('tasks', compact('tasks'));
     }
 
 
@@ -38,7 +39,7 @@ class TasksController extends Controller
      */
     public function store()
     {
-        Tasks::create( $this->validateTask());
+        Tasks::create( $this->validateTask()+['organisation_id'=>Auth::user()->organisation->id]);
         return redirect('/tasks');
 
     }

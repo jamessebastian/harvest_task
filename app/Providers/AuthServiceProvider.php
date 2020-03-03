@@ -18,7 +18,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
          //'App\Model' => 'App\Policies\ModelPolicy',
         User::class=>roles::class,
-        'App\Tasks'=>'App\Policies\TaskPolicy',
+        'App\Clients'=>'App\Policies\ClientPolicy',
     ];
 
     /**
@@ -30,11 +30,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+
+
+        Gate::define('is_admin','App\Policies\roles@is_admin');
         Gate::define('edit-users','App\Policies\roles@edit_users');
         Gate::define('manage-users','App\Policies\roles@manage_users');
         Gate::define('delete-users','App\Policies\roles@delete_users');
 
-        Gate::resource('task','App\Policies\TaskPolicy');
+        Gate::resource('client','App\Policies\ClientPolicy');
 
     }
 }

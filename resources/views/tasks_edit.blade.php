@@ -19,12 +19,12 @@
                     <li class="nav-item sub-nav-item subNavActive">
                         <a class="nav-link sub-nav-link" href="/tasks">Tasks</a>
                     </li>
-                    <li class="nav-item sub-nav-item">
-                        <a class="nav-link sub-nav-link" href="#">Expense Categories</a>
-                    </li>
-                    <li class="nav-item sub-nav-item">
-                        <a class="nav-link sub-nav-link" href="#">Roles</a>
-                    </li>
+{{--                    <li class="nav-item sub-nav-item">--}}
+{{--                        <a class="nav-link sub-nav-link" href="#">Expense Categories</a>--}}
+{{--                    </li>--}}
+{{--                    <li class="nav-item sub-nav-item">--}}
+{{--                        <a class="nav-link sub-nav-link" href="#">Roles</a>--}}
+{{--                    </li>--}}
                 </ul>
 
             </div>

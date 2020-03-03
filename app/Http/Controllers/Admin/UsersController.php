@@ -7,6 +7,8 @@ use App\User;
 use App\Role;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
@@ -31,6 +33,53 @@ class UsersController extends Controller
         $users = User::all();
         return view('admin.users.index',['users'=>$users]);
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $roles = Role::all();
+        return view('admin.users.create')->with(['roles'=>$roles]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+
+        request()->validate([
+            'name'=>['required','min:2','max:255'],
+            'email'=>['required','email','unique:users']
+        ]);
+
+        $token = md5(uniqid(rand(), true));
+        $user = new User;
+        $user->token = $token;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->organisation_id = Auth::user()->organisation->id;
+        $user->save();
+
+        $user->roles()->sync($request->roles);
+
+
+        Mail::raw("Click this link to login to your account- http://127.0.0.1:8000/invitation?token=".$token, function($message){
+            $message->to(request('email'))->subject('Invitation');
+        });
+
+        return redirect('/admin/users/create')->with('message','Email sent!');
+
+    }
+
+
+
 
     /**
      * Show the form for editing the specified resource.

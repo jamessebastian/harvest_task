@@ -20,18 +20,53 @@ class roles
         //
     }
 
+
+    /**
+     * Check if a user can edit users.
+     *
+     * @param  \App\User  $user
+     *
+     * @return boolean
+     */
+    public function is_admin($user)
+    {
+        return $user->hasRole(['admin']);
+    }
+
+    /**
+     * Check if a user can edit users.
+     *
+     * @param  \App\User  $user
+     *
+     * @return boolean
+     */
     public function edit_users($user)
     {
         return $user->hasAnyRoles(['admin', 'author']);
     }
 
+    /**
+     * Check if a user can manage users.
+     *
+     * @param  \App\User  $user
+     *
+     * @return boolean
+     */
     public function manage_users($user)
     {
         return $user->hasAnyRoles(['admin', 'author']);
     }
 
+    /**
+     * Check if a user can delete users.
+     *
+     * @param  \App\User  $user
+     *
+     * @return boolean
+     */
     public function delete_users($user)
     {
         return $user->hasRole(['admin']);
     }
+
 }
