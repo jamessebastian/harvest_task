@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Clients;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class ClientsController extends Controller
@@ -28,9 +29,55 @@ class ClientsController extends Controller
     {
         // return view('articles.index', ['articles' => $articles] );
         //$clients = Clients::all();
+        if(request()->search){
 
-        $clients = Auth::user()->organisation->clients;
-        return view('clients.clients',['clients'=>$clients] );
+            if(request()->sort){
+                $nameOrder = request()->sort=='name'?request()->order=='asc'?'desc':'asc':'asc';
+                $nameSortHref = "/clients?search=".request()->search."&sort=name&order=".$nameOrder;
+                $currencyOrder = request()->sort=='currency'?request()->order=='asc'?'desc':'asc':'asc';
+                $currencySortHref = "/clients?search=".request()->search."&sort=currency&order=".$currencyOrder;
+
+                $clients = Clients::where([
+                    ['organisation_id', '=', Auth::user()->organisation->id],
+                    ['name','like','%'.request()->search.'%']])
+                    ->orderBy(request()->sort, request()->order)
+                    ->paginate(5)
+                    ->appends(['search' => request()->search,'sort' => request()->sort,'order' => request()->order ]);
+            } else {
+                $nameSortHref = "/clients?search=".request()->search."&sort=name&order=asc";
+                $currencySortHref = "/clients?search=".request()->search."&sort=currency&order=asc";
+
+                $clients = Clients::where([
+                    ['organisation_id', '=', Auth::user()->organisation->id],
+                    ['name','like','%'.request()->search.'%']])
+                    ->paginate(5)
+                    ->appends(['search' => request()->search]);
+            }
+
+
+
+        } else {
+
+
+            if(request()->sort){
+                $nameOrder = request()->sort=='name'?request()->order=='asc'?'desc':'asc':'asc';
+                $nameSortHref = "/clients?sort=name&order=".$nameOrder;
+                $currencyOrder = request()->sort=='currency'?request()->order=='asc'?'desc':'asc':'asc';
+                $currencySortHref = "/clients?sort=currency&order=".$currencyOrder;
+
+                $clients = Clients::where('organisation_id', '=', Auth::user()->organisation->id)
+                    ->orderBy(request()->sort, request()->order)
+                    ->paginate(5)
+                    ->appends(['sort' => request()->sort,'order' => request()->order]);
+            } else {
+                $nameSortHref = "/clients?sort=name&order=asc";
+                $currencySortHref = "/clients?sort=currency&order=asc";
+
+                $clients = Clients::where('organisation_id', '=', Auth::user()->organisation->id)->paginate(5);
+            }
+        }
+
+        return view('clients.clients',['clients'=>$clients,'nameSortHref'=>$nameSortHref, 'currencySortHref'=>$currencySortHref] );
     }
 
     /**

@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="acaccd44-30d9-455d-9539-4b8ae7cde811" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ClientsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ClientsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TasksController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TasksController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/ClientFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/ClientFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/TaskFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/TaskFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/clients/clients.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/clients.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/tasks.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tasks.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -217,14 +225,18 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="294" y="55" width="824" height="684" key="#CLI_Interpreters" timestamp="1583323448018">
+      <screen x="67" y="27" width="1299" height="741" />
+    </state>
+    <state x="294" y="55" width="824" height="684" key="#CLI_Interpreters/67.27.1299.741@67.27.1299.741" timestamp="1583323448018" />
     <state x="361" y="27" width="701" height="741" key="#PHP" timestamp="1581584938038">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state x="361" y="27" width="701" height="741" key="#PHP/67.27.1299.741@67.27.1299.741" timestamp="1581584938038" />
-    <state x="390" y="76" width="642" height="641" key="#ProjectsController.php" timestamp="1581935095824">
+    <state x="390" y="76" width="642" height="641" key="#ProjectsController.php" timestamp="1583323454257">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="390" y="76" width="642" height="641" key="#ProjectsController.php/67.27.1299.741@67.27.1299.741" timestamp="1581935095824" />
+    <state x="390" y="76" width="642" height="641" key="#ProjectsController.php/67.27.1299.741@67.27.1299.741" timestamp="1583323454257" />
     <state x="311" y="58" width="800" height="677" key="#Scopes" timestamp="1581584014779">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
@@ -237,10 +249,10 @@
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state x="399" y="124" width="624" height="544" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/67.27.1299.741@67.27.1299.741" timestamp="1581417297711" />
-    <state x="449" y="154" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1583231683417">
+    <state x="449" y="154" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1583311226730">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="449" y="154" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1299.741@67.27.1299.741" timestamp="1583231683417" />
+    <state x="449" y="154" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1299.741@67.27.1299.741" timestamp="1583311226730" />
     <state x="499" y="154" width="424" height="484" key="FileChooserDialogImpl" timestamp="1579687735328">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
@@ -309,9 +321,9 @@
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state x="249" y="159" width="795" height="576" key="find.popup/67.27.1299.741@67.27.1299.741" timestamp="1582889862890" />
-    <state x="379" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1583213981792">
+    <state x="379" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1583242702262">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="379" y="89" width="672" height="678" key="search.everywhere.popup/67.27.1299.741@67.27.1299.741" timestamp="1583213981792" />
+    <state x="379" y="89" width="672" height="678" key="search.everywhere.popup/67.27.1299.741@67.27.1299.741" timestamp="1583242702262" />
   </component>
 </project>

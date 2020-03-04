@@ -112,14 +112,27 @@
                 </form>
                 @if(count($tasks))
                     <h3 class="mt-5"><strong>Tasks</strong></h3>
+
+                    <form method="GET" action="/tasks">
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchItem" name="search" value="{{ request()->search }}">
+                            </div>
+                            <div class="col-sm-6">
+                                <button class="btn  btn-primary my-2 my-sm-0" type="submit">Search Clients</button>
+                            </div>
+                        </div>
+                    </form>
+
+
                     <div class="alert alert-danger" role="alert"></div>
 
                 <table class="table table-hover mt-4">
                     <thead>
                     <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Hourly Rate</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col"><a href="{{$nameSortHref}}">Name </a>@if(request()->sort=='name'){{ request()->order=='asc'?'(asc)':'(desc)' }} @endif</th>
+                        <th scope="col"><a href="{{$hourlyRateSortHref}}">Hourly Rate </a>@if(request()->sort=='hourly_rate'){{ request()->order=='asc'?'(asc)':'(desc)' }} @endif</th>
+                        <th scope="col"><a href="/tasks">Actions</a></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -147,10 +160,9 @@
 
                         </tr>
                     @endforeach
-
-
                     </tbody>
                 </table>
+                {{$tasks->links()}}
 
 
 
