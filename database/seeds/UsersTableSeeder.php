@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
         DB::table('role_user')->truncate();
 
         $adminRole = Role::where('name','admin')->first();
-        $pmRole = Role::where('name','pm')->first();
+       // $pmRole = Role::where('name','pm')->first();
         $userRole = Role::where('name','user')->first();
 
         $admin= User::create(['name'=>'Admin user',
@@ -27,10 +27,10 @@ class UsersTableSeeder extends Seeder
                               'organisation_id'=>1,
                               'password'=>Hash::make('password')]);
 
-        $pm = User::create(['name'=>'proj manager',
-                                'email'=>'pm@pm.com',
-                                'organisation_id'=>1,
-                                'password'=>Hash::make('password')]);
+//        $pm = User::create(['name'=>'proj manager',
+//                                'email'=>'pm@pm.com',
+//                                'organisation_id'=>1,
+//                                'password'=>Hash::make('password')]);
 
         $user = User::create(['name'=>'Generic user',
                               'email'=>'user@user.com',
@@ -39,7 +39,7 @@ class UsersTableSeeder extends Seeder
 
         $admin->roles()->attach($adminRole->id);
         $user->roles()->attach($userRole);
-        $pmRole->users()->attach($pm);
+       // $pmRole->users()->attach($pm);
 
     }
 }

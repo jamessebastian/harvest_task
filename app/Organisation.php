@@ -22,6 +22,15 @@ class Organisation extends Model
         return $this->hasMany(Clients::class);
     }
 
+
+    /**
+     * Get the projects for the organisation.
+     */
+    public function projects()
+    {
+        return $this->hasMany(Projects::class);
+    }
+
     /**
      * Get the tasks for the organisation.
      */

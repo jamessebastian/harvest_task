@@ -6,7 +6,7 @@ use App\Clients;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ClientPolicy
+class ClientsPolicy
 {
     use HandlesAuthorization;
 
@@ -18,20 +18,9 @@ class ClientPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasAccess(['view-client']);
+        return $user->hasAbility('view-client');
     }
 
-    /**
-     * Determine whether the user can view the clients.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Clients  $clients
-     * @return mixed
-     */
-    public function view(User $user, Clients $clients)
-    {
-        //
-    }
 
     /**
      * Determine whether the user can create clients.
@@ -41,7 +30,8 @@ class ClientPolicy
      */
     public function create(User $user)
     {
-        //
+      //  return false;
+         return $user->hasAbility('create-client');
     }
 
     /**
@@ -53,7 +43,8 @@ class ClientPolicy
      */
     public function update(User $user, Clients $clients)
     {
-        //
+        //return false;
+        return $user->hasAbility('update-client') and $user->organisation==$clients->organisation;
     }
 
     /**
@@ -65,30 +56,7 @@ class ClientPolicy
      */
     public function delete(User $user, Clients $clients)
     {
-        //
+        return $user->hasAbility('delete-client') and $user->organisation==$clients->organisation;
     }
 
-    /**
-     * Determine whether the user can restore the clients.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Clients  $clients
-     * @return mixed
-     */
-    public function restore(User $user, Clients $clients)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the clients.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Clients  $clients
-     * @return mixed
-     */
-    public function forceDelete(User $user, Clients $clients)
-    {
-        //
-    }
 }

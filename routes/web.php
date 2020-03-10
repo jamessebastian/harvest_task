@@ -35,20 +35,22 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 
 
 
-Route::get('/clients', 'ClientsController@index')->middleware('can:is_admin');
-Route::post('/clients', 'ClientsController@store')->middleware('can:is_admin');
-Route::get('/clients/create', 'ClientsController@create')->middleware('can:is_admin');
-Route::get('/clients/{client}/edit', 'ClientsController@edit')->middleware('can:is_admin');
-Route::put('/clients/{client}', 'ClientsController@update')->middleware('can:is_admin');
-//Route::delete('/clients/{client}', 'ClientsController@delete');
-Route::delete('/clients/{client}', 'ClientsController@ajaxDelete')->middleware('can:is_admin');
+Route::get('/clients', 'ClientsController@index')->middleware(['can:viewAny,App\Clients']);
+Route::post('/clients/ajaxIndex', 'ClientsController@ajaxIndex');
 
-Route::get('/tasks', 'TasksController@index');
-Route::post('/tasks', 'TasksController@store');
-Route::get('/tasks/{task}/edit', 'TasksController@edit');
-Route::put('/tasks/{task}', 'TasksController@update');
+Route::post('/clients', 'ClientsController@store')->middleware('can:create,App\Clients');
+Route::get('/clients/create', 'ClientsController@create')->middleware('can:create,App\Clients');
+Route::get('/clients/{client}/edit', 'ClientsController@edit')->middleware('can:update,client');
+Route::put('/clients/{client}', 'ClientsController@update')->middleware('can:update,client');
+//Route::delete('/clients/{client}', 'ClientsController@delete');
+Route::delete('/clients/{client}', 'ClientsController@ajaxDelete')->middleware('can:delete,client');
+
+Route::get('/tasks', 'TasksController@index')->middleware('can:viewAny,App\Tasks');
+Route::post('/tasks', 'TasksController@store')->middleware('can:create,App\Tasks');
+Route::get('/tasks/{task}/edit', 'TasksController@edit')->middleware('can:update,task');
+Route::put('/tasks/{task}', 'TasksController@update')->middleware('can:update,task');
 //Route::delete('/tasks/{task}', 'TasksController@delete');
-Route::delete('/tasks/{task}', 'TasksController@ajaxDelete');
+Route::delete('/tasks/{task}', 'TasksController@ajaxDelete')->middleware('can:delete,task');
 
 Route::get('/expenses', 'ExpensesController@index');
 Route::post('/expenses', 'ExpensesController@store');
@@ -66,6 +68,10 @@ Route::delete('/person/{person_id}', 'PersonsController@delete');
 Route::get('/projects', 'ProjectsController@index');
 Route::post('/projects', 'ProjectsController@store');
 Route::get('/projects/new', 'ProjectsController@create');
+Route::get('/projects/{project}/edit', 'ProjectsController@edit');
+Route::put('/projects/{project}', 'ProjectsController@update');
+Route::delete('/projects/{project}', 'ProjectsController@delete');
+
 
 Route::get('/time', 'TimeEntryController@redirectToToday');
 Route::get('/time/{year}/{month}/{day}', 'TimeEntryController@index');

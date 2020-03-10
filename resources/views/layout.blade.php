@@ -34,9 +34,13 @@
                 <li class="nav-item nav-itemQ {{Request::path() === 'projects' ? 'active':''}}">
                     <a class="nav-link nav-linkQ" href="/projects">Project</a>
                 </li>
-                <li class="nav-item nav-itemQ {{Request::path() === 'team' ? 'active':''}}">
-                    <a class="nav-link nav-linkQ" href="/team">Team</a>
-                </li>
+
+{{--                <li class="nav-item nav-itemQ {{Request::path() === 'team' ? 'active':''}}">--}}
+{{--                    <a class="nav-link nav-linkQ" href="/team">Team</a>--}}
+{{--                </li>--}}
+{{--                --}}
+
+
 {{--                <li class="nav-item nav-itemQ">--}}
 {{--                    <a class="nav-link nav-linkQ" href="#">Reports</a>--}}
 {{--                </li>--}}

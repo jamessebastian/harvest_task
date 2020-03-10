@@ -4,6 +4,10 @@
 <title>Manage</title>
 @endsection
 
+@section('tail')
+    <script src="/clientValidation.js"></script>
+@endsection
+
 @section('sub-navbar')
     <nav id="subNavbar" class="navbar navbar-expand-lg">
         <div class="container">
@@ -37,30 +41,33 @@
             <div class="col-8">
                 <h3><strong>Edit Client:<span style="font-style: italic;">  {{ $client->name}}</span></strong></h3>
                 <hr>
-                <form method="POST" action="/clients/{{$client->uuid}}">
+                <form onsubmit="return validate();" method="POST" action="/clients/{{$client->uuid}}">
                     @csrf
                     @method('PUT')
-                    @if ($errors->any())
-                        <div class="alert alert-danger" role="alert">
-                            Please enter the correct values
-                        </div>
-                    @endif
+                    <div id="alertBox">
+                        @if ($errors->any())
+                            <div class="alert alert-danger" role="alert">
+                                Please enter the correct values
+                            </div>
+                        @endif
+                    </div>
+
                     <div class="form-group row">
                         <label for="name" class="col-sm-2 col-form-label form-control-sm">Client Name</label>
                         <div class="col-sm-10">
                             <input type="text" name="name" class="form-control" id="clientName" value="{{$client->name}}">
-                            @if($errors->has('name'))
-                                <small class="red">{{$errors->first('name')}}</small>
-                            @endif
+
+                                <small id="clientNameErr" class="red">{{$errors->first('name')}}</small>
+
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="address" class="col-sm-2 col-form-label form-control-sm">Address</label>
                         <div class="col-sm-10">
                             <textarea class="form-control" name="address" id="address" rows="3">{{$client->address}}</textarea>
-                            @error('address')
-                            <small class="red">{{$errors->first('address')}}</small>
-                            @enderror
+
+                            <small id="addressErr" class="red">{{$errors->first('address')}}</small>
+
                         </div>
                     </div>
                     <div class="form-group row">
@@ -74,7 +81,7 @@
                                 <option value="CAD" {{$client->currency == 'CAD' ? 'selected' : '' }}>Canadian Dollar - CAD</option>
                                 <option value="JPY" {{$client->currency == 'JPY' ? 'selected' : '' }}>Japanese Yen - JPY</option>
                             </select>
-                            <small class="red">{{$errors->first('currency')}}</small>
+                            <small id="currencyErr" class="red">{{$errors->first('currency')}}</small>
                         </div>
                     </div>
                     <div class="form-group row">

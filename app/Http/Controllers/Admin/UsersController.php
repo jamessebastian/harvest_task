@@ -21,6 +21,7 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->authorizeResource(User::class);
     }
 
     /**
@@ -30,7 +31,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::where('organisation_id','=',Auth::user()->organisation->id)->get();
         return view('admin.users.index',['users'=>$users]);
     }
 

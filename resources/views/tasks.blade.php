@@ -10,40 +10,32 @@
 @endsection
 
 @section('tail')
+    <script src="/ajax.js"></script>
+    <script src="/taskValidation.js"></script>
+    <script src="/tasks.js"></script>
     <script>
-        $('.alert').hide();
-        $("body").on("click", ".delete", function(e) {
-            uuid = $(e.currentTarget).data("uuid");
-            hideElement = $(e.currentTarget).parent().parent().parent();
-            $("#exampleModalLabel").text("Are you sure you want to delete " + $(e.currentTarget).data("task-name"));
-
-            //console.log( e.currentTarget.getAttribute("data-id").toString());
-            //console.log(e.currentTarget.getAttribute("data-id")==$(e.currentTarget).data("id"));
-        });
-
-
-
         $(document).ready(function() {
             $("#yes").on("click", function(){
 
-                $.ajax({
-                    type 		: 'POST',
-                    url 		: '/tasks/'+uuid,
-                    data 		: {'id':uuid,
-                                    "_token": "<?php echo csrf_token(); ?>",
-                                    "_method":"DELETE"},
-                    dataType 	: 'json',
-                    success 	: function(data) {
+
+                ajax('POST',
+                     '/tasks/'+uuid,
+                     {'id':uuid,
+                      "_token": "<?php echo csrf_token(); ?>",
+                      "_method":"DELETE"
+                     },
+                    (data) => {
                         if (data) {
                             hideElement.hide();
                             $('.alert').show();
                             $('.alert').text(data.msg);
 
 
-                             setTimeout(()=>{$('.alert').hide();}, 2000);
+                            setTimeout(()=>{$('.alert').hide();}, 2000);
                         }
                     }
-                });
+                );
+
 
             });
         });
@@ -83,7 +75,7 @@
     <div class="container" id="contentSection">
         <div class="row justify-content-center">
             <div class="col-8">
-                <form id="addTask" method="POST" action="/tasks">
+                <form onsubmit="return validate();" id="addTask" method="POST" action="/tasks">
                     @csrf
                     <h3><strong>Add New Task</strong></h3>
                     <hr>
@@ -91,14 +83,14 @@
                         <label for="name" class="col-sm-2 col-form-label form-control-sm">Task Name</label>
                         <div class="col-sm-10">
                             <input type="text" name="name" class="form-control" value="{{old('name')}}" id="name">
-                            <small class="red">{{$errors->first('name')}}</small>
+                            <small id="nameErr" class="red">{{$errors->first('name')}}</small>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="hourly_rate" class="col-sm-2 col-form-label form-control-sm">Hourly Rate</label>
                         <div class="col-sm-10">
                             <input type="text" name="hourly_rate" class="form-control" value="{{old('hourly_rate')}}" id="hourlyRate">
-                            <small class="red">{{$errors->first('hourly_rate')}}</small>
+                            <small id="hourlyRateErr" class="red">{{$errors->first('hourly_rate')}}</small>
                         </div>
                     </div>
 
@@ -130,9 +122,9 @@
                 <table class="table table-hover mt-4">
                     <thead>
                     <tr>
-                        <th scope="col"><a href="{{$nameSortHref}}">Name </a>@if(request()->sort=='name'){{ request()->order=='asc'?'(asc)':'(desc)' }} @endif</th>
-                        <th scope="col"><a href="{{$hourlyRateSortHref}}">Hourly Rate </a>@if(request()->sort=='hourly_rate'){{ request()->order=='asc'?'(asc)':'(desc)' }} @endif</th>
-                        <th scope="col"><a href="/tasks">Actions</a></th>
+                        <th scope="col"><a href="{{$nameSortHref}}">Name </a>@if(request()->sort=='name'){!! request()->order=='asc'?'<i class="fas fa-arrow-up"></i>':'<i class="fas fa-arrow-down"></i>' !!} @endif</th>
+                        <th scope="col"><a href="{{$hourlyRateSortHref}}">Hourly Rate </a>@if(request()->sort=='hourly_rate'){!!  request()->order=='asc'?'<i class="fas fa-arrow-up"></i>':'<i class="fas fa-arrow-down"></i>'  !!} @endif</th>
+                        <th scope="col">Actions</th>
                     </tr>
                     </thead>
                     <tbody>

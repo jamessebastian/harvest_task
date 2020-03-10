@@ -4,18 +4,56 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Clients;
-
+use Webpatser\Uuid\Uuid;
 
 class Projects extends Model
 {
     protected $guarded = [];
+
+
+
+    /**
+     * For overriding default behaviour;
+     */
+    public static function boot()
+    {
+      parent::boot();
+
+      //creates uuid
+      self::creating(function ($model) {
+        $model->uuid = (string)Uuid::generate();
+      });
+    }
+
+    /**
+     * Sets uuid as Route Key Name;
+     */
+    public function getRouteKeyName()
+    {
+        //return 'slug';
+        return 'uuid';
+    }
+
+
+
+
+
+
+    /**
+     * Get the organisation that owns the user.
+     */
+    public function organisation()
+    {
+        return $this->belongsTo(Organisation::class);
+    }
+
 
     /**
      * Get the client that owns the project.
      */
     public function clients()
     {
-        return $this->belongsTo(Clients::class);
+        return $this->belongsTo(Clients::class)->withTimestamps();
     }
 
     /**
@@ -23,15 +61,15 @@ class Projects extends Model
      */
     public function tasks()
     {
-        return $this->belongsToMany(Tasks::class);
+        return $this->belongsToMany(Tasks::class)->withTimestamps();
     }
 
     /**
-     * The persons that belong to the project.
+     * The users that belong to the project.
      */
-    public function persons()
+    public function users()
     {
-        return $this->belongsToMany(Persons::class);
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 
     /**

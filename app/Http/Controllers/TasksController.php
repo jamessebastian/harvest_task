@@ -90,7 +90,7 @@ class TasksController extends Controller
     public function store()
     {
         $validatedValues = request()->validate([
-            'name'=>['required','min:2','max:255',Rule::unique('tasks')->where(function ($query) {
+            'name'=>['required','regex:/^(\s*[A-Za-z]\w*\s*)*$/','min:2','max:255',Rule::unique('tasks')->where(function ($query) {
                 return $query->where('organisation_id', Auth::user()->organisation->id);})],
             'hourly_rate'=>['required','numeric']]);
 
@@ -122,7 +122,7 @@ class TasksController extends Controller
     public function update(Tasks $task)
     {
         $validatedValues = request()->validate([
-            'name'=>['required','min:2','max:255',Rule::unique('tasks')->ignore($task->id)->where(function ($query) {
+            'name'=>['required','regex:/^(\s*[A-Za-z]\w*\s*)*$/','min:2','max:255',Rule::unique('tasks')->ignore($task->id)->where(function ($query) {
                 return $query->where('organisation_id', Auth::user()->organisation->id);})],
             'hourly_rate'=>['required','numeric']]);
 

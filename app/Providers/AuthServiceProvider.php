@@ -37,7 +37,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('manage-users','App\Policies\roles@manage_users');
         Gate::define('delete-users','App\Policies\roles@delete_users');
 
-        Gate::resource('client','App\Policies\ClientPolicy');
+      //  Gate::resource('client','App\Policies\ClientPolicy');
 
     }
 }

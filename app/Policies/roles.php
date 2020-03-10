@@ -30,6 +30,7 @@ class roles
      */
     public function is_admin($user)
     {
+        //return false;
         return $user->hasRole(['admin']);
     }
 
