@@ -196,7 +196,7 @@ class ClientsController extends Controller
     public function update(Clients $client)
     {
        // $this->authorize('update',$client);
-//chumma
+//chumma 2
         $validatedValues = request()->validate([
             'name'=>['required','regex:/^(\s*[A-Za-z]\w*\s*)*$/','min:2','max:255',Rule::unique('clients')->ignore($client->id)->where(function ($query) {
                 return $query->where('organisation_id', Auth::user()->organisation->id);})],
