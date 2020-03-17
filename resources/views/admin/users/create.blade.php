@@ -12,11 +12,10 @@
                             @csrf
 
                             <div class="form-group row">
-                                <label for="email" class="col-md-2 col-form-label text-md-right">Email</label>
+                                <label for="email" class="col-md-2 col-form-label text-md-right">Email <span class="red">*</span></label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email" autofocus>
                                     @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -26,10 +25,10 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="name" class="col-md-2 col-form-label text-md-right">Name</label>
+                                <label for="name" class="col-md-2 col-form-label text-md-right">Name <span class="red">*</span></label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus>
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autofocus>
 
                                     @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -40,7 +39,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="roles" class="col-md-2 col-form-label text-md-right">Roles</label>
+                                <label for="roles" class="col-md-2 col-form-label text-md-right">Roles <span class="red">*</span></label>
                                 <div class="col-md-6">
                                     @foreach($roles as $role)
                                         <div class="form-check">

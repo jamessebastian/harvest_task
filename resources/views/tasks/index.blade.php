@@ -12,36 +12,17 @@
 @section('tail')
     <script src="/ajax.js"></script>
     <script src="/taskValidation.js"></script>
-    <script src="/tasks.js"></script>
+    <script src="/tasksIndex.js"></script>
     <script>
-        $(document).ready(function() {
-            $("#yes").on("click", function(){
 
-
-                ajax('POST',
-                     '/tasks/'+uuid,
-                     {'id':uuid,
-                      "_token": "<?php echo csrf_token(); ?>",
-                      "_method":"DELETE"
-                     },
-                    (data) => {
-                        if (data) {
-                            hideElement.hide();
-                            $('.alert').show();
-                            $('.alert').text(data.msg);
-
-
-                            setTimeout(()=>{$('.alert').hide();}, 2000);
-                        }
-                    }
-                );
-
-
-            });
-        });
-
+        let token = "<?php echo csrf_token(); ?>";
+        let currentPageCount = 5;
+        let nameSortOrder = 'asc';
+        let rateSortOrder = 'asc';
 
     </script>
+
+
 
 @endsection
 
@@ -80,14 +61,14 @@
                     <h3><strong>Add New Task</strong></h3>
                     <hr>
                     <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label form-control-sm">Task Name</label>
+                        <label for="name" class="col-sm-2 col-form-label form-control-sm">Task Name <span class="red">*</span></label>
                         <div class="col-sm-10">
                             <input type="text" name="name" class="form-control" value="{{old('name')}}" id="name">
                             <small id="nameErr" class="red">{{$errors->first('name')}}</small>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="hourly_rate" class="col-sm-2 col-form-label form-control-sm">Hourly Rate</label>
+                        <label for="hourly_rate" class="col-sm-2 col-form-label form-control-sm">Hourly Rate <span class="red">*</span></label>
                         <div class="col-sm-10">
                             <input type="text" name="hourly_rate" class="form-control" value="{{old('hourly_rate')}}" id="hourlyRate">
                             <small id="hourlyRateErr" class="red">{{$errors->first('hourly_rate')}}</small>
@@ -105,7 +86,7 @@
                 @if(count($tasks))
                     <h3 class="mt-5"><strong>Tasks</strong></h3>
 
-                    <form method="GET" action="/tasks">
+                    <form id="searchForm" onsubmit="return searchSubmit('<?php echo csrf_token(); ?>');">
                         <div class="form-group row">
                             <div class="col-sm-6">
                                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchItem" name="search" value="{{ request()->search }}">
@@ -118,43 +99,15 @@
 
 
                     <div class="alert alert-danger" role="alert"></div>
-
-                <table class="table table-hover mt-4">
-                    <thead>
-                    <tr>
-                        <th scope="col"><a href="{{$nameSortHref}}">Name </a>@if(request()->sort=='name'){!! request()->order=='asc'?'<i class="fas fa-arrow-up"></i>':'<i class="fas fa-arrow-down"></i>' !!} @endif</th>
-                        <th scope="col"><a href="{{$hourlyRateSortHref}}">Hourly Rate </a>@if(request()->sort=='hourly_rate'){!!  request()->order=='asc'?'<i class="fas fa-arrow-up"></i>':'<i class="fas fa-arrow-down"></i>'  !!} @endif</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                    <div id="tableWrapper">
+                        @include('tasks.ajaxIndex')
+                    </div>
 
 
 
-                    @foreach ($tasks as $task)
-                        <tr>
-                            {{--                        <th scope="row"><a class="btn btn-sm btn-secondary" href="#" role="button">Edit</a></th>--}}
-{{--                            <td><button class="mx-2" onclick="window.location.href = '/tasks/{{$task->id}}';">Delete</button>{{$task->name}}</td>--}}
-                            <td>
-                                {{$task->name}}
-                            </td>
-                            <td>
-                                {{$task->hourly_rate}}
-                            </td>
-                            <td>
-                                <form onsubmit="return false;" method="POST" style="display:inline;" action="/tasks/{{$task->uuid}}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button data-toggle="modal" data-task-name="{{$task->name}}" data-target="#exampleModal" data-uuid="{{$task->uuid}}" class="btn btn-danger btn-sm delete" type="submit">Delete</button>
-                                </form>
-                                <a class="btn btn-sm btn-info" href="/tasks/{{$task->uuid}}/edit">Edit</a>
-                            </td>
 
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-                {{$tasks->links()}}
+
+
 
 
 

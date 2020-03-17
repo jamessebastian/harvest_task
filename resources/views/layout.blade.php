@@ -67,15 +67,16 @@
 {{--                        @if (Auth::user()){{Auth::user()->name}}@else sunny @endif--}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="userEdit.php"><strong>{{Auth::user()->organisation->name}}</strong></a>
+                        <a class="dropdown-item" href="#"><strong>{{Auth::user()->organisation->name}}</strong></a>
                         <hr>
-                        <a class="dropdown-item" href="userEdit.php">My Profile</a>
+                        <a class="dropdown-item" href="#">My Profile</a>
 {{--                        <a class="dropdown-item" href="changePassword.php">My Time Report</a>--}}
 {{--                        <a class="dropdown-item" href="changePassword.php">Notifications</a>--}}
 {{--                        <hr>--}}
 {{--                        <a class="dropdown-item" href="userEdit.php">Apps & Integrations</a>--}}
                         @can('manage-users')
                         <a class="dropdown-item"  href="{{ route('admin.users.index') }}">User Managent</a>
+                        <a class="dropdown-item"  href="/admin/edit-organisation">Edit {{Auth::user()->organisation->name}}</a>
                         @endcan
                         <hr>
                         <a class="dropdown-item"

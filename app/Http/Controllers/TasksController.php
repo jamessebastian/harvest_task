@@ -20,6 +20,69 @@ class TasksController extends Controller
         $this->middleware('auth');
     }
 
+
+    /**
+     * To index clients through ajax calls.
+     *
+     * @return json
+     */
+    public function ajaxIndex()
+    {
+
+        if(request()->search){
+
+            if(request()->sort){
+                $nameOrder = request()->sort=='name'?request()->order=='asc'?'desc':'asc':'asc';
+                $nameSortHref = "/tasks?search=".request()->search."&sort=name&order=".$nameOrder;
+                $hourlyRateOrder = request()->sort=='hourly_rate'?request()->order=='asc'?'desc':'asc':'asc';
+                $hourlyRateSortHref = "/tasks?search=".request()->search."&sort=hourly_rate&order=".$hourlyRateOrder;
+
+                $tasks = Tasks::where([
+                    ['organisation_id', '=', Auth::user()->organisation->id],
+                    ['name','like','%'.request()->search.'%']])
+                    ->orderBy(request()->sort, request()->order)
+                    ->paginate(5)
+                    ->appends(['search' => request()->search,'sort' => request()->sort,'order' => request()->order ]);
+            } else {
+                $nameSortHref = "/tasks?search=".request()->search."&sort=name&order=asc";
+                $hourlyRateSortHref = "/tasks?search=".request()->search."&sort=hourly_rate&order=asc";
+
+                $tasks = Tasks::where([
+                    ['organisation_id', '=', Auth::user()->organisation->id],
+                    ['name','like','%'.request()->search.'%']])
+                    ->paginate(5)
+                    ->appends(['search' => request()->search]);
+            }
+
+
+
+        } else {
+
+
+            if(request()->sort){
+                $nameOrder = request()->sort=='name'?request()->order=='asc'?'desc':'asc':'asc';
+                $nameSortHref = "/tasks?sort=name&order=".$nameOrder;
+                $hourlyRateOrder = request()->sort=='hourly_rate'?request()->order=='asc'?'desc':'asc':'asc';
+                $hourlyRateSortHref = "/tasks?sort=hourly_rate&order=".$hourlyRateOrder;
+
+                $tasks = Tasks::where('organisation_id', '=', Auth::user()->organisation->id)
+                    ->orderBy(request()->sort, request()->order)
+                    ->paginate(5)
+                    ->appends(['sort' => request()->sort,'order' => request()->order]);
+            } else {
+                $nameSortHref = "/tasks?sort=name&order=asc";
+                $hourlyRateSortHref = "/tasks?sort=hourly_rate&order=asc";
+
+                $tasks = Tasks::where('organisation_id', '=', Auth::user()->organisation->id)->paginate(5);
+            }
+        }
+
+        $returnHTML = view('tasks.ajaxIndex',['tasks'=>$tasks,'nameSortHref'=>$nameSortHref, 'hourlyRateSortHref'=>$hourlyRateSortHref])->render();
+        return response()->json(['html'=>$returnHTML,'currentPageCount'=>$tasks->count()]);
+
+    }
+
+
     /**
      * To index tasks.
      *
@@ -78,7 +141,8 @@ class TasksController extends Controller
             }
         }
 
-        return view('tasks',['tasks'=>$tasks,'nameSortHref'=>$nameSortHref, 'hourlyRateSortHref'=>$hourlyRateSortHref] );
+        return view('tasks.index',['tasks'=>$tasks,'nameSortHref'=>$nameSortHref, 'hourlyRateSortHref'=>$hourlyRateSortHref] );
+
     }
 
 
@@ -109,7 +173,7 @@ class TasksController extends Controller
     public function edit(Tasks $task)
     {
        // $task = Tasks::findOrFail($id);
-        return view('tasks_edit',compact('task'));
+        return view('tasks.edit',compact('task'));
     }
 
     /**

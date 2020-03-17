@@ -34,80 +34,21 @@
     <script src="/clientIndex.js"></script>
     <script>
 
+        let token = "<?php echo csrf_token(); ?>";
+        let currentPageCount = 5;
+        let nameSortOrder = 'asc';
+        let currencySortOrder = 'asc';
 
-
-        $(document).on('click','#nameSort',function (e) {
-            e.preventDefault();
-            url = $(this).attr('href');
-            params = getUrlParams(url);
-
-            ajax('POST',
-                'clients/ajaxIndex',
-                {
-                    "_token": "<?php echo csrf_token(); ?>",
-                    "search":$("#searchItem").val()
-                },);
-
-        })
-
-
-        $(document).ready(function() {
-
-
-
-            $("#yes").on("click", function(){
-
-                ajax('POST',
-                    '/clients/'+uuid,
-                    {'id':uuid,
-                    "_token": "<?php echo csrf_token(); ?>",
-                    "_method":"DELETE"
-                    },
-                    (data) => {
-                          //  hideElement.hide();
-                            $('.alert').show();
-                            $('.alert').text(data.msg);
-                            setTimeout(()=>{$('.alert').hide();}, 2000);
-                        windowLocation = new URL(window.location);
-                        ajax('POST',
-                            'clients/ajaxIndex',
-                            {
-                                "_token": "<?php echo csrf_token(); ?>",
-                                "search":windowLocation.searchParams.get('search'),
-                                "sort":windowLocation.searchParams.get('sort'),
-                                "order":windowLocation.searchParams.get('order'),
-                                "page":windowLocation.searchParams.get('page'),
-                            },
-                            (data) => {
-                                $("#tableWrapper").html(data.html);
-                            }
-                        );
-                    }
-                );
-
-
-
-            });
-
-
-
-        });
     </script>
 
 @endsection
+
 @section('content')
     <div class="container" id="contentSection">
         <div class="row justify-content-center">
             <div class="col-8">
                 <h3>Manage clients</h3>
                 <a class="btn btn-success btn-sm mb-3" href="clients/create" role="button"><strong>+ New Client</strong></a>
-
-
-{{--                @foreach($data as $item)--}}
-{{--                    <ul>--}}
-{{--                        <li>{{ $item->name }}</li>--}}
-{{--                    </ul>--}}
-{{--                @endforeach--}}
 
                 <form id="searchForm" onsubmit="return searchSubmit('<?php echo csrf_token(); ?>');">
                     <div class="form-group row">
@@ -123,36 +64,7 @@
 
                 <div class="alert mt-4 alert-danger" role="alert"></div>
                 <div id="tableWrapper">
-                    <table class="table table-hover mt-4">
-                        <thead>
-                        <tr>
-                            <th scope="col"><a id="nameSort" href="{{ $nameSortHref }}">Name </a>@if(request()->sort=='name'){!! request()->order=='asc'?'<i class="fas fa-arrow-up"></i>':'<i class="fas fa-arrow-down"></i>'!!} @endif</th>
-                            <th scope="col"><a id="currencySort" href="{{ $currencySortHref }}">Currency </a>@if(request()->sort=='currency'){!! request()->order=='asc'?'<i class="fas fa-arrow-up"></i>':'<i class="fas fa-arrow-down"></i>' !!} @endif</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-
-                        @foreach ($clients as $client)
-                            <tr>
-                                {{--                        <th scope="row"><a class="btn btn-sm btn-secondary" href="#" role="button">Edit</a></th>--}}
-                                <td>{{$client->name}}</td>
-                                <td>{{$client->currency}}</td>
-                                <td>
-                                    <button class="mx-2 btn btn-sm btn-info" onclick="window.location.href = '/clients/{{$client->uuid}}/edit';">Edit</button>
-                                    <form onsubmit="return false;" style="display:inline;" method="POST" action="/clients/{{$client->uuid}}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button data-toggle="modal" data-client-name="{{$client->name}}" data-uuid="{{$client->uuid}}" data-target="#exampleModal" class="btn btn-sm btn-danger delete">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-
-                        </tbody>
-                    </table>
-                    {{ $clients->links() }}
+                    @include('clients.ajaxIndex')
                 </div>
 
 

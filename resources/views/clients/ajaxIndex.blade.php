@@ -1,8 +1,10 @@
 <table class="table table-hover mt-4">
     <thead>
     <tr>
-        <th scope="col"><a href="{{ $nameSortHref }}">Name </a>@if(request()->sort=='name'){!! request()->order=='asc'?'<i class="fas fa-arrow-up"></i>':'<i class="fas fa-arrow-down"></i>'!!} @endif</th>
-        <th scope="col"><a href="{{ $currencySortHref }}">Currency </a>@if(request()->sort=='currency'){!! request()->order=='asc'?'<i class="fas fa-arrow-up"></i>':'<i class="fas fa-arrow-down"></i>' !!} @endif</th>
+{{--        <th scope="col"><a href="{{ $nameSortHref }}">Name </a>@if(request()->sort=='name'){!! request()->order=='asc'?'<i class="fas fa-arrow-up"></i>':'<i class="fas fa-arrow-down"></i>'!!} @endif</th>--}}
+{{--        <th scope="col"><a href="{{ $currencySortHref }}">Currency </a>@if(request()->sort=='currency'){!! request()->order=='asc'?'<i class="fas fa-arrow-up"></i>':'<i class="fas fa-arrow-down"></i>' !!} @endif</th>--}}
+        <th scope="col"><span id="nameSort">Name </span>@if(request()->sort=='name'){!! request()->order=='asc'?'<i class="fas fa-arrow-up"></i>':'<i class="fas fa-arrow-down"></i>'!!} @endif</th>
+        <th scope="col"><span id="currencySort">Currency </span>@if(request()->sort=='currency'){!! request()->order=='asc'?'<i class="fas fa-arrow-up"></i>':'<i class="fas fa-arrow-down"></i>' !!} @endif</th>
         <th scope="col">Actions</th>
     </tr>
     </thead>
@@ -23,9 +25,15 @@
                 </form>
             </td>
         </tr>
+
     @endforeach
 
+
+    @if(count($clients)==0)
+        <tr><td colspan="3">No Records found</td></tr>
+    @endif
     </tbody>
 </table>
+
 {{ $clients->links() }}
 

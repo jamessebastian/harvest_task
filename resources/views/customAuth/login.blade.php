@@ -23,7 +23,7 @@
 
          <ul class="navbar-nav ml-auto">
              <li class="nav-item active">
-                 <a class="nav-link" href="/clogin">Login</a>
+                 <a class="nav-link" href="/login">Login</a>
              </li>
              <li class="nav-item">
                  <a class="nav-link" href="/cregister">Register</a>
@@ -36,7 +36,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-5">
-                <form class="card p-3" method="POST" action="/clogin">
+                <form class="card p-3" method="POST" action="/login">
                     @csrf
                     <h3>LOGIN</h3>
                     <br>

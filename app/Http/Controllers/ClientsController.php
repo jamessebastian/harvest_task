@@ -76,7 +76,7 @@ class ClientsController extends Controller
         }
 
         $returnHTML = view('clients.ajaxIndex',['clients'=>$clients,'nameSortHref'=>$nameSortHref, 'currencySortHref'=>$currencySortHref])->render();
-        return response()->json(['html'=>$returnHTML]);
+        return response()->json(['html'=>$returnHTML,'currentPageCount'=>$clients->count()]);
 
     }
 

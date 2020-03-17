@@ -10,17 +10,17 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', 'CustomAuth\LoginController@showLoginForm')->name('clogin');
-
 Auth::routes();
+
+Route::get('/', 'CustomAuth\LoginController@showLoginForm')->name('login');
+
 
 
 Route::get('/cregister', 'CustomAuth\RegisterController@showRegistrationForm');
 Route::post('/cregister', 'CustomAuth\RegisterController@register');
 
-Route::get('/clogin', 'CustomAuth\LoginController@showLoginForm')->name('clogin');
-Route::post('/clogin', 'CustomAuth\LoginController@authenticate');
+Route::get('/login', 'CustomAuth\LoginController@showLoginForm')->name('login');
+Route::post('/login', 'CustomAuth\LoginController@authenticate');
 
 Route::get('/invitation', 'CustomAuth\ActivateController@showActivationForm');
 Route::post('/invitation', 'CustomAuth\ActivateController@activate');
@@ -32,12 +32,12 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
     Route::resource('/users','UsersController',['except'=>['show']]);
 });
-
+Route::get('/admin/edit-organisation', 'OrganisationController@edit')->middleware('can:manage-users');
+Route::put('/admin/edit-organisation', 'OrganisationController@update')->middleware('can:manage-users');
 
 
 Route::get('/clients', 'ClientsController@index')->middleware(['can:viewAny,App\Clients']);
-Route::post('/clients/ajaxIndex', 'ClientsController@ajaxIndex');
-
+Route::post('/clients/ajaxIndex', 'ClientsController@ajaxIndex')->middleware(['can:viewAny,App\Clients']);
 Route::post('/clients', 'ClientsController@store')->middleware('can:create,App\Clients');
 Route::get('/clients/create', 'ClientsController@create')->middleware('can:create,App\Clients');
 Route::get('/clients/{client}/edit', 'ClientsController@edit')->middleware('can:update,client');
@@ -46,6 +46,7 @@ Route::put('/clients/{client}', 'ClientsController@update')->middleware('can:upd
 Route::delete('/clients/{client}', 'ClientsController@ajaxDelete')->middleware('can:delete,client');
 
 Route::get('/tasks', 'TasksController@index')->middleware('can:viewAny,App\Tasks');
+Route::post('/tasks/ajaxIndex', 'TasksController@ajaxIndex')->middleware('can:viewAny,App\Tasks');
 Route::post('/tasks', 'TasksController@store')->middleware('can:create,App\Tasks');
 Route::get('/tasks/{task}/edit', 'TasksController@edit')->middleware('can:update,task');
 Route::put('/tasks/{task}', 'TasksController@update')->middleware('can:update,task');

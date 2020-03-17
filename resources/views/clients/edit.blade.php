@@ -53,7 +53,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label form-control-sm">Client Name</label>
+                        <label for="name" class="col-sm-2 col-form-label form-control-sm">Client Name <span class="red">*</span></label>
                         <div class="col-sm-10">
                             <input type="text" name="name" class="form-control" id="clientName" value="{{$client->name}}">
 
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="address" class="col-sm-2 col-form-label form-control-sm">Address</label>
+                        <label for="address" class="col-sm-2 col-form-label form-control-sm">Address <span class="red">*</span></label>
                         <div class="col-sm-10">
                             <textarea class="form-control" name="address" id="address" rows="3">{{$client->address}}</textarea>
 
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="preferredCurrency" class="col-sm-2 col-form-label form-control-sm">Preferred Currency</label>
+                        <label for="preferredCurrency" class="col-sm-2 col-form-label form-control-sm">Preferred Currency <span class="red">*</span></label>
                         <div class="col-sm-10">
                             <select class="form-control" name="currency" id="preferredCurrency">
                                 <option value="INR" {{$client->currency == 'INR' ? 'selected' : '' }}>Indian Rupee - INR</option>

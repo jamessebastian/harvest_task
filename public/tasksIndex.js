@@ -17,7 +17,7 @@ $(document).ready(function() {
         params = getUrlParams(url);
 
         ajax('POST',
-            'clients/ajaxIndex',
+            'tasks/ajaxIndex',
             {
                 "_token": token,
                 "search":params['search'],
@@ -28,7 +28,7 @@ $(document).ready(function() {
             (data) => {
                 currentPageCount = data.currentPageCount;
                 $("#tableWrapper").html(data.html);
-                urlToPush = "clients?search="+params['search']+"&sort="+params['sort']+"&order="+params['order']+"&page="+params['page'];
+                urlToPush = "tasks?search="+params['search']+"&sort="+params['sort']+"&order="+params['order']+"&page="+params['page'];
                 urlToPush = urlToPush.split("undefined").join("");
                 window.history.pushState("", "", urlToPush);
             }
@@ -44,7 +44,7 @@ $(document).ready(function() {
     $(document).on('click','#nameSort',function () {
 
         ajax('POST',
-            'clients/ajaxIndex',
+            'tasks/ajaxIndex',
             {
                 "_token": token,
                 "search":$("#searchItem").val(),
@@ -54,36 +54,36 @@ $(document).ready(function() {
             (data) => {
                 currentPageCount = data.currentPageCount;
                 $("#tableWrapper").html(data.html);
-                window.history.pushState("", "", "clients?search="+$("#searchItem").val()+"&sort=name&order="+nameSortOrder);
-        }
+                window.history.pushState("", "", "tasks?search="+$("#searchItem").val()+"&sort=name&order="+nameSortOrder);
+            }
         );
         if(nameSortOrder === 'asc') {
             nameSortOrder = 'desc';
         } else {
             nameSortOrder = 'asc';
         }
-        currencySortOrder = 'asc';
+        rateSortOrder = 'asc';
     });
 
-    $(document).on('click','#currencySort',function () {
+    $(document).on('click','#hourlyRateSort',function () {
         ajax('POST',
-            'clients/ajaxIndex',
+            'tasks/ajaxIndex',
             {
                 "_token": token,
                 "search":$("#searchItem").val(),
-                "sort":'currency',
-                "order":currencySortOrder,
+                "sort":'hourly_rate',
+                "order":rateSortOrder,
             },
             (data) => {
                 currentPageCount = data.currentPageCount;
-                window.history.pushState("", "", "clients?search="+$("#searchItem").val()+"&sort=currency&order="+currencySortOrder);
+                window.history.pushState("", "", "tasks?search="+$("#searchItem").val()+"&sort=hourly_rate&order="+rateSortOrder);
                 $("#tableWrapper").html(data.html);
-        }
+            }
         );
-        if(currencySortOrder === 'asc') {
-            currencySortOrder = 'desc';
+        if(rateSortOrder === 'asc') {
+            rateSortOrder = 'desc';
         } else {
-            currencySortOrder = 'asc';
+            rateSortOrder = 'asc';
         }
         nameSortOrder = 'asc';
     });
@@ -98,7 +98,7 @@ $(document).ready(function() {
     $("#yes").on("click", function(){
 
         ajax('POST',
-            '/clients/'+uuid,
+            '/tasks/'+uuid,
             {'id':uuid,
                 "_token": token,
                 "_method":"DELETE"
@@ -111,13 +111,13 @@ $(document).ready(function() {
                 windowLocation = new URL(window.location);
                 if(currentPageCount == 1) {
                     page = windowLocation.searchParams.get('page') - 1;
-                    urlToPush = "clients?search="+windowLocation.searchParams.get('search')+"&sort="+windowLocation.searchParams.get('sort')+"&order="+windowLocation.searchParams.get('order')+"&page="+page;
+                    urlToPush = "tasks?search="+windowLocation.searchParams.get('search')+"&sort="+windowLocation.searchParams.get('sort')+"&order="+windowLocation.searchParams.get('order')+"&page="+page;
                     window.history.pushState("", "", urlToPush);
                 } else {
                     page = windowLocation.searchParams.get('page');
                 }
                 ajax('POST',
-                    'clients/ajaxIndex',
+                    'tasks/ajaxIndex',
                     {
                         "_token": token,
                         "search":windowLocation.searchParams.get('search'),
@@ -144,23 +144,23 @@ $(document).ready(function() {
 function getUrlParams(url) {
     var params = {};
     url.substring(1).replace(/[?&]+([^=&]+)=([^&]*)/gi,
-            function (str, key, value) {
-                 params[key] = value;
-            });
+        function (str, key, value) {
+            params[key] = value;
+        });
     return params;
 }
 
 function searchSubmit(token) {
     //e.preventDefault();
     ajax('POST',
-        'clients/ajaxIndex',
+        'tasks/ajaxIndex',
         {
             "_token": token,
             "search":$("#searchItem").val()
         },
         (data) => {
             $("#tableWrapper").html(data.html);
-            window.history.pushState("", "", "clients?search="+$("#searchItem").val());
+            window.history.pushState("", "", "tasks?search="+$("#searchItem").val());
         }
     );
 

@@ -50,14 +50,14 @@
                     <h3><strong>Edit Task</strong></h3>
                     <hr>
                     <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label form-control-sm">Task Name</label>
+                        <label for="name" class="col-sm-2 col-form-label form-control-sm">Task Name <span class="red">*</span></label>
                         <div class="col-sm-10">
                             <input type="text" value="{{$task->name}}" name="name" class="form-control" id="name">
                             <small id="nameErr" class="red">{{$errors->first('name')}}</small>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="hourly_rate" class="col-sm-2 col-form-label form-control-sm">Hourly Rate</label>
+                        <label for="hourly_rate" class="col-sm-2 col-form-label form-control-sm">Hourly Rate <span class="red">*</span></label>
                         <div class="col-sm-10">
                             <input type="text" value="{{$task->hourly_rate}}" name="hourly_rate" class="form-control" id="hourlyRate">
                             <small id="hourlyRateErr" class="red">{{$errors->first('hourly_rate')}}</small>
