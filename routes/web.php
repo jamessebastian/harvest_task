@@ -10,40 +10,48 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/clients', 'CustomAuth.LoginController@index');
-Route::get('/clients', 'CustomAuth.RegisterController@');
+Route::get('/', 'CustomAuth\LoginController@showLoginForm')->name('login');
+
+
+
+Route::get('/cregister', 'CustomAuth\RegisterController@showRegistrationForm');
+Route::post('/cregister', 'CustomAuth\RegisterController@register');
+
+Route::get('/login', 'CustomAuth\LoginController@showLoginForm')->name('login');
+Route::post('/login', 'CustomAuth\LoginController@authenticate');
+
+Route::get('/invitation', 'CustomAuth\ActivateController@showActivationForm');
+Route::post('/invitation', 'CustomAuth\ActivateController@activate');
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 //Route::resource('/admin/users','Admin\UsersController',['except'=>['show','create','store']]);
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
-    Route::resource('/users','UsersController',['except'=>['show','create','store']]);
+    Route::resource('/users','UsersController',['except'=>['show']]);
 });
+Route::get('/admin/edit-organisation', 'OrganisationController@edit')->middleware('can:manage-users');
+Route::put('/admin/edit-organisation', 'OrganisationController@update')->middleware('can:manage-users');
 
 
-
-Route::get('/clients', 'ClientsController@index');
-Route::post('/clients', 'ClientsController@store');
-Route::get('/clients/create', 'ClientsController@create');
-Route::get('/clients/{client}/edit', 'ClientsController@edit');
-Route::put('/clients/{client}', 'ClientsController@update');
+Route::get('/clients', 'ClientsController@index')->middleware(['can:viewAny,App\Clients']);
+Route::post('/clients/ajaxIndex', 'ClientsController@ajaxIndex')->middleware(['can:viewAny,App\Clients']);
+Route::post('/clients', 'ClientsController@store')->middleware('can:create,App\Clients');
+Route::get('/clients/create', 'ClientsController@create')->middleware('can:create,App\Clients');
+Route::get('/clients/{client}/edit', 'ClientsController@edit')->middleware('can:update,client');
+Route::put('/clients/{client}', 'ClientsController@update')->middleware('can:update,client');
 //Route::delete('/clients/{client}', 'ClientsController@delete');
-Route::delete('/clients/{client}', 'ClientsController@ajaxDelete');
+Route::delete('/clients/{client}', 'ClientsController@ajaxDelete')->middleware('can:delete,client');
 
-Route::get('/tasks', 'TasksController@index');
-Route::post('/tasks', 'TasksController@store');
-Route::get('/tasks/{task}/edit', 'TasksController@edit');
-Route::put('/tasks/{task}', 'TasksController@update');
+Route::get('/tasks', 'TasksController@index')->middleware('can:viewAny,App\Tasks');
+Route::post('/tasks/ajaxIndex', 'TasksController@ajaxIndex')->middleware('can:viewAny,App\Tasks');
+Route::post('/tasks', 'TasksController@store')->middleware('can:create,App\Tasks');
+Route::get('/tasks/{task}/edit', 'TasksController@edit')->middleware('can:update,task');
+Route::put('/tasks/{task}', 'TasksController@update')->middleware('can:update,task');
 //Route::delete('/tasks/{task}', 'TasksController@delete');
-Route::delete('/tasks/{task}', 'TasksController@ajaxDelete');
+Route::delete('/tasks/{task}', 'TasksController@ajaxDelete')->middleware('can:delete,task');
 
 Route::get('/expenses', 'ExpensesController@index');
 Route::post('/expenses', 'ExpensesController@store');
@@ -61,6 +69,10 @@ Route::delete('/person/{person_id}', 'PersonsController@delete');
 Route::get('/projects', 'ProjectsController@index');
 Route::post('/projects', 'ProjectsController@store');
 Route::get('/projects/new', 'ProjectsController@create');
+Route::get('/projects/{project}/edit', 'ProjectsController@edit');
+Route::put('/projects/{project}', 'ProjectsController@update');
+Route::delete('/projects/{project}', 'ProjectsController@delete');
+
 
 Route::get('/time', 'TimeEntryController@redirectToToday');
 Route::get('/time/{year}/{month}/{day}', 'TimeEntryController@index');

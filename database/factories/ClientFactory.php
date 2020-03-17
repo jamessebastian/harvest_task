@@ -8,6 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Clients::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
+        'organisation_id'=>1,
         'address' => $faker->paragraph,
         'currency' => 'INR'
     ];

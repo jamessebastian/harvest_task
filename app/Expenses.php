@@ -17,6 +17,14 @@ class Expenses extends Model
     }
 
     /**
+     * Get the user that owns the expense.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
      * Get the timesheet that owns the expense.
      */
     public function timesheet()

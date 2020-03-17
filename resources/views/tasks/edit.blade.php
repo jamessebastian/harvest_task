@@ -8,6 +8,12 @@
     <link rel="stylesheet" type="text/css" href="/tasks.css">
 @endsection
 
+@section('tail')
+    <script src="/taskValidation.js"></script>
+
+@endsection
+
+
 @section('sub-navbar')
     <nav id="subNavbar" class="navbar navbar-expand-lg">
         <div class="container">
@@ -19,12 +25,12 @@
                     <li class="nav-item sub-nav-item subNavActive">
                         <a class="nav-link sub-nav-link" href="/tasks">Tasks</a>
                     </li>
-                    <li class="nav-item sub-nav-item">
-                        <a class="nav-link sub-nav-link" href="#">Expense Categories</a>
-                    </li>
-                    <li class="nav-item sub-nav-item">
-                        <a class="nav-link sub-nav-link" href="#">Roles</a>
-                    </li>
+{{--                    <li class="nav-item sub-nav-item">--}}
+{{--                        <a class="nav-link sub-nav-link" href="#">Expense Categories</a>--}}
+{{--                    </li>--}}
+{{--                    <li class="nav-item sub-nav-item">--}}
+{{--                        <a class="nav-link sub-nav-link" href="#">Roles</a>--}}
+{{--                    </li>--}}
                 </ul>
 
             </div>
@@ -38,23 +44,23 @@
         <div class="row justify-content-center">
 
             <div class="col-8">
-                <form id="addTask" method="POST" action="/tasks/{{$task->uuid}}">
+                <form onsubmit="return validate();"  id="addTask" method="POST" action="/tasks/{{$task->uuid}}">
                     @csrf
                     @method('PUT')
                     <h3><strong>Edit Task</strong></h3>
                     <hr>
                     <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label form-control-sm">Task Name</label>
+                        <label for="name" class="col-sm-2 col-form-label form-control-sm">Task Name <span class="red">*</span></label>
                         <div class="col-sm-10">
                             <input type="text" value="{{$task->name}}" name="name" class="form-control" id="name">
-                            <small class="red">{{$errors->first('name')}}</small>
+                            <small id="nameErr" class="red">{{$errors->first('name')}}</small>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="hourly_rate" class="col-sm-2 col-form-label form-control-sm">Hourly Rate</label>
+                        <label for="hourly_rate" class="col-sm-2 col-form-label form-control-sm">Hourly Rate <span class="red">*</span></label>
                         <div class="col-sm-10">
                             <input type="text" value="{{$task->hourly_rate}}" name="hourly_rate" class="form-control" id="hourlyRate">
-                            <small class="red">{{$errors->first('hourly_rate')}}</small>
+                            <small id="hourlyRateErr" class="red">{{$errors->first('hourly_rate')}}</small>
                         </div>
                     </div>
 

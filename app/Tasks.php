@@ -30,6 +30,13 @@ class Tasks extends Model
         return 'uuid';
     }
 
+    /**
+     * Get the organisation that owns the user.
+     */
+    public function organisation()
+    {
+        return $this->belongsTo(Organisation::class);
+    }
 
     /**
      * The projects that belong to the Task.

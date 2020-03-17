@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -44,12 +45,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+
+
     /**
-     * The roles that belong to the user.
+     * Get the organisation that owns the user.
      */
-    public function roles()
+    public function organisation()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsTo(Organisation::class);
+    }
+
+    /**
+     * Get the projects for the user.
+     */
+    public function projects()
+    {
+        return $this->hasMany(Projects::class);
     }
 
 
@@ -69,6 +81,31 @@ class User extends Authenticatable
         return $this->hasMany(TimeSheet::class);
     }
 
+
+
+
+
+
+
+    /**
+     * The roles that belong to the user.
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+
+    /**
+     * Assign role to the user.
+     */
+    public function assignRole($role)
+    {
+        if(is_string($role)){
+            $role = Role::whereName($role)->firstOrFail();
+        }
+        $this->roles()->sync($role,false);
+    }
+
     /**
      * To check whether user has any roles in the given array
      *
@@ -86,7 +123,7 @@ class User extends Authenticatable
     }
 
     /**
-     * To show the form to edit clients.
+     * To check whether a user has the role.
      *
      * @param  String  $role
      *
@@ -100,4 +137,57 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    /**
+     * To check whether a user has the ability.
+     *
+     * @param  String  $abilityName
+     *
+     * @return boolean
+     */
+    public function hasAbility($abilityName)
+    {
+        $flag = false;
+        $userRoles = $this->roles;
+        foreach ($userRoles as $userRole){
+            $flag = ($flag or $userRole->hasAbility($abilityName));
+        }
+        return $flag;
+    }
+
+
+
+
+//    public function hasAccess(array $permissions)
+//    {
+//        foreach ($permissions as $permission) {
+//            if($this->hasPermission($permission)){
+//                  return true;
+//             }
+//        }
+//        return false;
+//    }
+//
+//
+//
+//    public function hasPermission(string $permission)
+//    {
+//        $permissions = json_decode($this->permissions,true);
+//        return $permissions[$permission]??false;
+//
+//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

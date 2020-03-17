@@ -14,7 +14,7 @@
 <script src="/time.js"></script>
 
 @endsection
-
+@can('is_admin')
 @section('sub-navbar')
     <nav id="subNavbar" class="navbar navbar-expand-lg">
         <div class="container">
@@ -39,6 +39,7 @@
     </nav>
 
 @endsection
+@endcan
 
 @section('content')
     <div class="container-fluid" id="contentSection">

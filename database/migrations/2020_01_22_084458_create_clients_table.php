@@ -15,11 +15,16 @@ class CreateClientsTable extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('uuid')->unique();
             $table->text('address');
             $table->text('currency');
             $table->timestamps();
+
+
+            $table->unsignedBigInteger('organisation_id');
+            $table->foreign('organisation_id')->references('id')->on('organisations');
+
         });
     }
 

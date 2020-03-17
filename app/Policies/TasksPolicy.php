@@ -6,7 +6,7 @@ use App\Tasks;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class TaskPolicy
+class TasksPolicy
 {
     use HandlesAuthorization;
 
@@ -18,7 +18,7 @@ class TaskPolicy
      */
     public function viewAny(User $user)
     {
-        return rand(10,100)%2==0;
+        return $user->hasAbility('create-task');
     }
 
     /**
@@ -41,7 +41,7 @@ class TaskPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->hasAbility('create-task');
     }
 
     /**
@@ -53,7 +53,7 @@ class TaskPolicy
      */
     public function update(User $user, Tasks $tasks)
     {
-        //
+        return $user->hasAbility('update-task') and $user->organisation==$tasks->organisation;
     }
 
     /**
@@ -65,7 +65,7 @@ class TaskPolicy
      */
     public function delete(User $user, Tasks $tasks)
     {
-        //
+        return $user->hasAbility('delete-task') and $user->organisation==$tasks->organisation;
     }
 
     /**

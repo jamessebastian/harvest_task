@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePersonsProjectsTable extends Migration
+class CreateProjectsUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,16 +14,16 @@ class CreatePersonsProjectsTable extends Migration
     public function up()
     {
 
-        Schema::create('persons_projects', function (Blueprint $table) {
+        Schema::create('projects_user', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('projects_id');
-            $table->unsignedBigInteger('persons_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
-            $table->unique(['projects_id','persons_id']);
+            $table->unique(['projects_id','user_id']);
 
             $table->foreign('projects_id')->references('id')->on('projects')->onDelete('cascade');
-            $table->foreign('persons_id')->references('id')->on('persons')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

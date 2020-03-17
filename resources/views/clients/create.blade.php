@@ -1,7 +1,11 @@
 @extends('layout')
 
 @section('title')
-<title>Manage</title>
+    <title>Manage</title>
+@endsection
+
+@section('tail')
+    <script src="/clientValidation.js"></script>
 @endsection
 
 @section('sub-navbar')
@@ -15,12 +19,12 @@
                     <li class="nav-item sub-nav-item">
                         <a class="nav-link sub-nav-link" href="/tasks">Tasks</a>
                     </li>
-                    <li class="nav-item sub-nav-item">
-                        <a class="nav-link sub-nav-link" href="#">Expense Categories</a>
-                    </li>
-                    <li class="nav-item sub-nav-item">
-                        <a class="nav-link sub-nav-link" href="#">Roles</a>
-                    </li>
+{{--                    <li class="nav-item sub-nav-item">--}}
+{{--                        <a class="nav-link sub-nav-link" href="#">Expense Categories</a>--}}
+{{--                    </li>--}}
+{{--                    <li class="nav-item sub-nav-item">--}}
+{{--                        <a class="nav-link sub-nav-link" href="#">Roles</a>--}}
+{{--                    </li>--}}
                 </ul>
 
             </div>
@@ -38,35 +42,41 @@
                 <h3><strong>New client</strong></h3>
                 <p>Once you’ve added a client, you can add projects and contacts.</p>
                 <hr>
-                <form method="POST" action="/clients">
+                <form onsubmit="return validate();" method="POST" action="/clients">
                     @csrf
-                    @if ($errors->any())
-                    <div class="alert alert-danger" role="alert">
-                      Please enter the correct values
+
+                    <div id="alertBox">
+                        @if ($errors->any())
+                            <div class="alert alert-danger" role="alert">
+                                Please enter the correct values
+                            </div>
+                        @endif
                     </div>
-                    @endif
+
+
                     <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label form-control-sm">Client Name</label>
+                        <label for="name" class="col-sm-2 col-form-label form-control-sm">Client Name <span class="red">*</span></label>
                         <div class="col-sm-10">
-                            <input type="text" name="name" class="form-control" id="clientName" value="{{old('clientName')}}">
-                            @if($errors->has('name'))
-                            <small class="red">{{$errors->first('name')}}</small>
-                            @endif
+                            <input type="text" name="name" class="form-control" id="clientName" value="{{old('name')}}">
+
+                            <small id="clientNameErr" class="red">{{$errors->first('name')}}</small>
+
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="address" class="col-sm-2 col-form-label form-control-sm">Address</label>
+                        <label for="address" class="col-sm-2 col-form-label form-control-sm">Address <span class="red">*</span></label>
                         <div class="col-sm-10">
                             <textarea class="form-control" name="address" id="address" rows="3">{{old('address')}}</textarea>
-                            @error('address')
-                            <small class="red">{{$errors->first('address')}}</small>
-                            @enderror
+
+                            <small id="addressErr" class="red">{{$errors->first('address')}}</small>
+
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="preferredCurrency" class="col-sm-2 col-form-label form-control-sm">Preferred Currency</label>
+                        <label for="preferredCurrency" class="col-sm-2 col-form-label form-control-sm">Preferred Currency <span class="red">*</span></label>
                         <div class="col-sm-10">
                             <select class="form-control" name="currency" id="preferredCurrency">
+                                <option {{old('currency')=='INR'? 'selected':''}}>--Select Any--</option>
                                 <option {{old('currency')=='INR'? 'selected':''}} value="INR">Indian Rupee - INR</option>
                                 <option {{old('currency')=='EUR'? 'selected':''}} value="EUR">Euro - EUR</option>
                                 <option {{old('currency')=='USD'? 'selected':''}} value="USD">American Dollar - USD</option>
@@ -74,7 +84,7 @@
                                 <option {{old('currency')=='CAD'? 'selected':''}} value="CAD">Canadian Dollar - CAD</option>
                                 <option {{old('currency')=='JPY'? 'selected':''}} value="JPY">Japanese Yen - JPY</option>
                             </select>
-                            <small class="red">{{$errors->first('currency')}}</small>
+                            <small id="currencyErr" class="red">{{$errors->first('currency')}}</small>
                         </div>
                     </div>
                     <div class="form-group row">
