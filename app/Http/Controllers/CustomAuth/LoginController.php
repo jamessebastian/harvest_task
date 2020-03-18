@@ -47,6 +47,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Authentication passed...
+            session(['login_device'=>'desktop']);
             return redirect()->intended('/time');
         }
 

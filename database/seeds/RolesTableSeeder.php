@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Role;
+use App\Organisation;
 
 class RolesTableSeeder extends Seeder
 {
@@ -13,6 +14,8 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         //Role::truncate();
+
+
 
         Role::create(['name'=>'admin']);
       //  Role::create(['name'=>'pm']);

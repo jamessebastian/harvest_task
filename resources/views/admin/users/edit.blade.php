@@ -8,7 +8,7 @@
                 <div class="card-header">Edit User : <strong>{{$user->name}}</strong></div>
 
                 <div class="card-body">
-                    <form action=" {{ route('admin.users.update',$user->id) }} " method="POST">
+                    <form action=" {{ route('admin.users.update',$user->uuid) }} " method="POST">
                         @csrf
                         @method('PUT')
 
@@ -39,6 +39,8 @@
                             </div>
                         </div>
 
+
+                        @if($user != Auth::user())
                         <div class="form-group row">
                             <label for="roles" class="col-md-2 col-form-label text-md-right">Roles</label>
                             <div class="col-md-6">
@@ -57,6 +59,8 @@
 
                             </div>
                         </div>
+                        @endif
+
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>
                 </div>

@@ -107,14 +107,22 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //Validation
-        $request->validate(['name'=>'required|string|min:2',
-                            'email'=>'string|email|unique:users,email,'.$user->id.'',
-                            'roles'=>'required',
-                            ]);
+        if($user == Auth::user()) {
+           $request->validate(['name'=>'required|string|min:2',
+                    'email'=>'string|email|unique:users,email,'.$user->id.'',
+                    ]); 
+        } else {
+            $request->validate(['name'=>'required|string|min:2',
+                    'email'=>'string|email|unique:users,email,'.$user->id.'',
+                    'roles'=>'required',
+                    ]);
 
 
-        $user->roles()->sync($request->roles);
+            $user->roles()->sync($request->roles);
+
+        }
+
+
         $user->name=$request->name;
         $user->email = $request->email;
         $user->save();

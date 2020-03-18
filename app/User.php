@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+use Webpatser\Uuid\Uuid;
 
 class User extends Authenticatable
 {
@@ -22,7 +22,26 @@ class User extends Authenticatable
 
     protected $guarded = [];
 
+    /**
+     * For overriding default behaviour;
+     */
+    public static function boot()
+    {
+        parent::boot();
 
+        //creates uuid
+        self::creating(function ($model) {
+            $model->uuid = (string)Uuid::generate();
+        });
+    }
+
+    /**
+     * Sets uuid as Route Key Name;
+     */
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
 
 
 
